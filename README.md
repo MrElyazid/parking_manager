@@ -2,26 +2,32 @@
 
 ## Description
 
-This is a simple desktop application built with JavaFX to simulate a smart parking reservation system. It allows regular users to reserve parking spots and provides an admin interface to manage these reservations. This project serves as a learning exercise focusing on JavaFX, FXML, MVC-like patterns, and basic UI design.
+This is a simple desktop application built with JavaFX to simulate a smart parking reservation system. It allows registered users to visually select and reserve parking spots for specific time slots and view their reservation history. An admin interface is provided to manage all reservations. The application uses an SQLite database for persistence.
 
 ## Features
 
 ### User Features:
-*   **Reserve Parking:** Select a date and duration (in hours) for a parking spot reservation.
-*   **Price Calculation:** Automatically calculates the estimated reservation price based on the duration (using a fixed hourly rate).
-*   **Confirmation:** Displays a confirmation message with reservation details upon successful booking.
+*   **User Registration & Login:** Users can register for an account and log in. Passwords are stored securely (hashed).
+*   **Visual Parking Lot:** View a representation of the parking lot.
+*   **Spot Availability Check:** Select a date and time range to see available spots visually marked.
+*   **Spot Selection:** Click on an available spot in the visual layout to select it for reservation.
+*   **Reservation Confirmation:** Confirm the reservation for the selected spot and time. Data is saved to the database.
+*   **Reservation History:** Logged-in users can view a table of their past and upcoming reservations.
+*   **Logout:** Users can log out of their account.
 
 ### Admin Features:
-*   **Admin Login:** Access the admin panel via a dedicated login button and dialog (using hardcoded credentials for this demo).
-*   **View Reservations:** See a list of all current reservations in a table format, including ID, date, duration, price, and creation time.
+*   **Admin Login:** Access the admin panel via a dedicated login button and dialog (using hardcoded credentials: `admin`/`password123`).
+*   **View All Reservations:** See a list of all reservations made by all users in a table format.
 *   **Manage Reservations:**
-    *   **Refresh:** Update the list of reservations displayed.
-    *   **Delete:** Remove selected reservations from the system.
+    *   **Refresh:** Update the list of all reservations displayed.
+    *   **Delete:** Remove selected reservations from the system (database).
 
 ## Technology Stack
 
 *   **Language:** Java 17
 *   **Framework:** JavaFX 17.0.10 (using FXML for UI definition)
+*   **Database:** SQLite
+*   **Database Connectivity:** JDBC (via `sqlite-jdbc` driver)
 *   **Build Tool:** Apache Maven 3.9+
 *   **Styling:** CSS
 
@@ -31,6 +37,7 @@ This is a simple desktop application built with JavaFX to simulate a smart parki
 .
 ├── pom.xml                 # Maven configuration file
 ├── README.md               # This file
+├── smartparking.db         # SQLite database file (created on first run)
 └── src
     └── main
         ├── java
@@ -39,11 +46,21 @@ This is a simple desktop application built with JavaFX to simulate a smart parki
         │           ├── controller    # FXML Controller classes
         │           │   ├── AdminLoginController.java
         │           │   ├── AdminPanelController.java
-        │           │   └── MainController.java
+        │           │   ├── MainController.java
+        │           │   ├── ParkingLotController.java
+        │           │   ├── UserHistoryController.java
+        │           │   ├── UserLoginController.java
+        │           │   └── UserRegisterController.java
         │           ├── model         # Data model classes
-        │           │   └── Reservation.java
-        │           ├── service       # Business logic/data access
-        │           │   └── ReservationService.java
+        │           │   ├── ParkingSpot.java
+        │           │   ├── Reservation.java
+        │           │   └── User.java
+        │           ├── service       # Business logic/data access (JDBC)
+        │           │   ├── ReservationService.java
+        │           │   ├── SpotService.java
+        │           │   └── UserService.java
+        │           ├── util          # Utility classes
+        │           │   └── DatabaseManager.java
         │           └── MainApp.java  # Main application entry point
         └── resources
             └── com
@@ -53,16 +70,22 @@ This is a simple desktop application built with JavaFX to simulate a smart parki
                     └── view          # FXML view files
                         ├── AdminLoginView.fxml
                         ├── AdminPanelView.fxml
-                        └── MainView.fxml
+                        ├── MainView.fxml
+                        ├── ParkingLotView.fxml
+                        ├── UserHistoryView.fxml
+                        ├── UserLoginView.fxml
+                        └── UserRegisterView.fxml
 ```
 
 *   **`com.smartparking`**: Root package.
-    *   **`MainApp.java`**: Entry point of the JavaFX application. Sets up the primary stage and loads the initial view.
+    *   **`MainApp.java`**: Entry point of the JavaFX application. Initializes the database and loads the initial view.
     *   **`controller`**: Contains controller classes that handle UI logic and events for their corresponding FXML views.
-    *   **`model`**: Contains Plain Old Java Objects (POJOs) representing the data structures (e.g., `Reservation`).
-    *   **`service`**: Contains classes responsible for business logic and data management (e.g., `ReservationService` for in-memory storage).
+    *   **`model`**: Contains Plain Old Java Objects (POJOs) representing the data structures (`User`, `ParkingSpot`, `Reservation`).
+    *   **`service`**: Contains classes responsible for business logic and data management, interacting with the database via JDBC (`UserService`, `SpotService`, `ReservationService`).
+    *   **`util`**: Contains utility classes like `DatabaseManager` for handling DB connection and setup.
     *   **`resources/com/smartparking/view`**: Contains FXML files defining the UI layout.
     *   **`resources/com/smartparking/css`**: Contains CSS files for styling the UI.
+*   **`smartparking.db`**: The SQLite database file created automatically in the project root directory.
 
 ## How to Run
 
@@ -81,22 +104,25 @@ This is a simple desktop application built with JavaFX to simulate a smart parki
     ```
     This command will:
     *   Clean the project (remove previous builds).
+    *   Download necessary dependencies (including the SQLite driver).
     *   Compile the source code.
-    *   Download necessary dependencies.
+    *   Create the `smartparking.db` file and tables if they don't exist.
     *   Run the JavaFX application.
 
-## Admin Credentials
+## Credentials
 
-For demonstration purposes, the admin login credentials are hardcoded:
-*   **Username:** `admin`
-*   **Password:** `password123`
+*   **Admin:**
+    *   Username: `admin`
+    *   Password: `password123`
+*   **Regular Users:** Register a new account through the application's registration screen.
 
 ## Future Improvements
 
-*   Implement actual database persistence instead of in-memory storage.
-*   Add user authentication for regular users.
-*   Implement spot selection/availability logic.
-*   Add editing functionality for reservations in the admin panel.
-*   Improve date/time and currency formatting in the table view.
-*   Refine UI/UX further.
+*   Implement password strength indicators and more robust hashing (e.g., BCrypt).
+*   Add functionality for users to cancel their own upcoming reservations.
+*   Enhance the admin panel to manage parking spots (add/edit/delete).
+*   Implement different pricing based on spot type or time of day.
+*   Add more detailed reporting for the admin.
+*   Refine UI/UX further (e.g., better visual feedback, loading indicators).
 *   Add unit and integration tests.
+*   Consider using a connection pool for database connections in a higher-load scenario.

@@ -251,13 +251,15 @@ public class ParkingLotController {
 
     private void clearParkingGridAndSelection() {
         parkingGrid.getChildren().clear(); // Remove all spot buttons
+        // Clear only the spot selection, not the time range which is still valid for the current check
         selectedSpot = null;
         selectedSpotButton = null;
-        selectedStartTime = null;
-        selectedEndTime = null;
+        // selectedStartTime = null; // DO NOT RESET TIME HERE
+        // selectedEndTime = null;   // DO NOT RESET TIME HERE
         selectedSpotLabel.setText("Selected Spot: None");
         confirmReservationButton.setDisable(true);
-        availabilityMessageLabel.setText("");
+        // Keep the availability message or clear it as needed, maybe clear here:
+        // availabilityMessageLabel.setText("");
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
