@@ -1,0 +1,131 @@
+/* General Styles */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif; /* A common modern font */
+    -fx-background-color: #f4f4f9; /* Light grey background */
+}
+
+/* Navigation Bar Styles */
+.nav-bar {
+    -fx-background-color: #4a4a8a; /* A deep blue/purple */
+    -fx-padding: 10px 20px;
+    -fx-alignment: center-left; /* Align items to the left */
+}
+
+.title-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.admin-button {
+    -fx-background-color: #e84545; /* A contrasting red */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 15px;
+    -fx-cursor: hand; /* Indicate it's clickable */
+    /* Position it to the right - FXML structure might need adjustment for better layout */
+    /* For now, it's just styled */
+}
+
+.admin-button:hover {
+    -fx-background-color: #c43030; /* Darker red on hover */
+}
+
+
+/* Center Content Styles */
+.welcome-label {
+    -fx-font-size: 28px; /* Made slightly larger in FXML */
+    -fx-text-fill: #4a4a8a; /* Match nav bar color */
+    -fx-padding-bottom: 10px; /* Add some space below */
+}
+
+/* Reservation Form Specific Styles */
+.grid-pane { /* Style the GridPane directly if needed, or use ID */
+    -fx-padding: 20px;
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); /* Subtle shadow */
+}
+
+.grid-pane .label { /* Style labels within the grid */
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+    -fx-font-weight: bold; /* Already set inline, but good practice */
+}
+
+.date-picker {
+    -fx-pref-width: 250px; /* Ensure consistent width */
+}
+
+.text-field {
+     -fx-pref-width: 250px;
+     -fx-prompt-text-fill: #aaa; /* Lighter prompt text */
+}
+
+.reserve-button { /* Specific style for the reserve button if needed */
+    -fx-font-weight: bold;
+    -fx-background-color: #5cb85c; /* Green */
+    /* Inherits general .button styles, can override here */
+}
+
+.reserve-button:hover {
+     -fx-background-color: #4cae4c; /* Darker green */
+}
+
+/* Parking Lot View Styles */
+.spot-button {
+    -fx-font-weight: bold;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-border-width: 1px;
+    -fx-border-color: #aaa;
+    -fx-padding: 5px; /* Adjust padding as needed */
+    -fx-alignment: center;
+}
+
+.spot-button-available {
+    -fx-background-color: #90ee90; /* Light green */
+    -fx-text-fill: #333;
+    -fx-cursor: hand;
+}
+.spot-button-available:hover {
+    -fx-background-color: #7ccd7c; /* Slightly darker green */
+}
+
+.spot-button-reserved {
+    -fx-background-color: #ff7f7f; /* Light red */
+    -fx-text-fill: #555;
+    -fx-opacity: 0.7; /* Make reserved spots slightly faded */
+}
+
+.spot-button-selected {
+    -fx-background-color: #4682b4; /* Steel blue */
+    -fx-text-fill: white;
+    -fx-border-color: #2a4b6a;
+    -fx-border-width: 2px;
+}
+
+
+/* Status Bar Styles */
+.status-label {
+     -fx-padding: 5px 20px;
+     -fx-background-color: #e0e0e0; /* Light grey for status bar */
+     -fx-text-fill: #555;
+     -fx-font-size: 12px;
+}
+
+/* Basic Button Style (can be refined) */
+.button {
+    -fx-background-color: #5cb85c; /* Green for general actions */
+    -fx-text-fill: white;
+    -fx-padding: 8px 20px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #4cae4c; /* Darker green on hover */
+}

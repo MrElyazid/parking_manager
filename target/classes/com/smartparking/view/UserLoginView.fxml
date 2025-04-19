@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.smartparking.controller.UserLoginController"
+      alignment="CENTER" spacing="20" styleClass="login-register-view" prefWidth="400">
+    <padding>
+        <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+    </padding>
+
+    <Label text="User Login" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #4a4a8a;"/>
+
+    <GridPane hgap="10" vgap="10" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="80.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+        </columnConstraints>
+        <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="usernameField" promptText="Enter username" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <PasswordField fx:id="passwordField" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    </GridPane>
+
+    <Label fx:id="messageLabel" style="-fx-text-fill: red;" managed="false" visible="false" text="Error Message"/>
+
+    <VBox alignment="CENTER" spacing="10">
+        <Button fx:id="loginButton" text="Login" onAction="#handleLogin" defaultButton="true" maxWidth="Infinity" styleClass="reserve-button"/>
+        <HBox alignment="CENTER" spacing="5">
+             <Label text="Don't have an account?"/>
+             <Hyperlink text="Register here" onAction="#handleGoToRegister"/>
+        </HBox>
+    </VBox>
+
+</VBox>
