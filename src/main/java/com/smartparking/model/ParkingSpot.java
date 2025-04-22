@@ -2,15 +2,17 @@ package com.smartparking.model;
 
 public class ParkingSpot {
 
-    private String spotId;        // e.g., "A1", "B5"
-    private String locationInfo;  // e.g., "Floor 1, Near Entrance"
-    private String type;          // e.g., Standard, EV, Disabled
+    private String spotId;
+    private String locationInfo;
+    private String type;
+    private double hourlyRate; // Added hourly rate
 
     // Constructor
-    public ParkingSpot(String spotId, String locationInfo, String type) {
+    public ParkingSpot(String spotId, String locationInfo, String type, double hourlyRate) {
         this.spotId = spotId;
         this.locationInfo = locationInfo;
         this.type = type;
+        this.hourlyRate = hourlyRate;
     }
 
     // Getters
@@ -26,6 +28,10 @@ public class ParkingSpot {
         return type;
     }
 
+     public double getHourlyRate() {
+        return hourlyRate;
+    }
+
     // No setters needed if spots are defined in DB and treated as immutable here
 
     @Override
@@ -34,6 +40,7 @@ public class ParkingSpot {
                 "spotId='" + spotId + '\'' +
                 ", locationInfo='" + locationInfo + '\'' +
                 ", type='" + type + '\'' +
+                ", hourlyRate=" + hourlyRate +
                 '}';
     }
 

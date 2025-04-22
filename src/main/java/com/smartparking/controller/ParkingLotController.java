@@ -53,7 +53,7 @@ public class ParkingLotController {
 
     // Time formatter for display/parsing if needed elsewhere, but primarily using combo values now
     // private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
-    private static final double HOURLY_RATE = 2.5; // Should ideally come from config or service
+    // private static final double HOURLY_RATE = 2.5; // Removed fixed rate
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -160,18 +160,37 @@ public class ParkingLotController {
 
         for (ParkingSpot spot : allSpots) {
             Button spotButton = new Button(spot.getSpotId());
-            spotButton.setPrefSize(60, 40); // Set preferred size
-            spotButton.getStyleClass().add("spot-button"); // Base style
+            spotButton.setPrefSize(60, 40);
+            spotButton.getStyleClass().add("spot-button");
+
+            // Add Tooltip
+            String tooltipText = String.format("Type: %s\nRate: $%.2f/hr", spot.getType(), spot.getHourlyRate());
+            Tooltip tooltip = new Tooltip(tooltipText);
+            spotButton.setTooltip(tooltip);
+
+            // Add type-specific style class
+            switch (spot.getType().toLowerCase()) {
+                case "ev":
+                    spotButton.getStyleClass().add("spot-button-ev");
+                    break;
+                case "disabled":
+                    spotButton.getStyleClass().add("spot-button-disabled");
+                    break;
+                default: // Standard or other types
+                    spotButton.getStyleClass().add("spot-button-standard");
+                    break;
+            }
+
 
             boolean isAvailable = reservationService.isSpotAvailable(spot.getSpotId(), start, end);
 
             if (isAvailable) {
                 spotButton.getStyleClass().add("spot-button-available");
                 spotButton.setOnAction(e -> handleSpotSelection(spotButton, spot));
-                buttonSpotMap.put(spotButton, spot); // Map button to spot object
+                buttonSpotMap.put(spotButton, spot);
             } else {
                 spotButton.getStyleClass().add("spot-button-reserved");
-                spotButton.setDisable(true); // Disable reserved spots
+                spotButton.setDisable(true);
             }
             parkingGrid.getChildren().add(spotButton);
         }
@@ -218,10 +237,11 @@ public class ParkingLotController {
          }
 
 
-        // Calculate price (example based on hours)
+        // Calculate price using the selected spot's hourly rate
         long durationMinutes = Duration.between(selectedStartTime, selectedEndTime).toMinutes();
         double hours = durationMinutes / 60.0;
-        double price = Math.max(1.0, hours * HOURLY_RATE); // Example: minimum charge of $1.0
+        // Use selectedSpot.getHourlyRate()
+        double price = Math.max(1.0, hours * selectedSpot.getHourlyRate()); // Use spot-specific rate, ensure minimum charge
 
         Reservation newReservation = new Reservation(
                 currentUser.getUserId(),

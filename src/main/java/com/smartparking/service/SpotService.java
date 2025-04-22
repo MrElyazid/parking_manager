@@ -20,7 +20,8 @@ public class SpotService {
      */
     public List<ParkingSpot> getAllParkingSpots() {
         List<ParkingSpot> spots = new ArrayList<>();
-        String sql = "SELECT spot_id, location_info, type FROM ParkingSpots ORDER BY spot_id"; // Order for consistency
+        // Updated SQL to select hourly_rate
+        String sql = "SELECT spot_id, location_info, type, hourly_rate FROM ParkingSpots ORDER BY spot_id";
 
         try (Connection conn = DatabaseManager.getConnection();
              Statement stmt = conn.createStatement();
@@ -30,7 +31,8 @@ public class SpotService {
                 ParkingSpot spot = new ParkingSpot(
                         rs.getString("spot_id"),
                         rs.getString("location_info"),
-                        rs.getString("type")
+                        rs.getString("type"),
+                        rs.getDouble("hourly_rate") // Get the hourly rate
                 );
                 spots.add(spot);
             }
@@ -49,12 +51,14 @@ public class SpotService {
      * @return true if successful, false otherwise.
      */
     public boolean addParkingSpot(ParkingSpot spot) {
-         String sql = "INSERT INTO ParkingSpots(spot_id, location_info, type) VALUES(?, ?, ?)";
+         // Updated SQL to insert hourly_rate
+         String sql = "INSERT INTO ParkingSpots(spot_id, location_info, type, hourly_rate) VALUES(?, ?, ?, ?)";
          try (Connection conn = DatabaseManager.getConnection();
               PreparedStatement pstmt = conn.prepareStatement(sql)) {
              pstmt.setString(1, spot.getSpotId());
              pstmt.setString(2, spot.getLocationInfo());
              pstmt.setString(3, spot.getType());
+             pstmt.setDouble(4, spot.getHourlyRate()); // Set the hourly rate
              int affectedRows = pstmt.executeUpdate();
              return affectedRows > 0;
          } catch (SQLException e) {

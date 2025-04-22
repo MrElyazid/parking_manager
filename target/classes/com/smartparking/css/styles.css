@@ -107,6 +107,20 @@
     -fx-border-width: 2px;
 }
 
+/* Type-specific spot styles (add icons later if desired) */
+.spot-button-standard {
+    /* Default look, maybe slightly different border? */
+    -fx-border-color: #bbb;
+}
+.spot-button-ev {
+    -fx-border-color: #007bff; /* Blue border for EV */
+    /* Add EV icon or different background? */
+}
+.spot-button-disabled {
+     -fx-border-color: #ffc107; /* Yellow border for Disabled */
+     /* Add Disabled icon? */
+}
+
 
 /* Status Bar Styles */
 .status-label {

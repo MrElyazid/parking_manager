@@ -39,9 +39,10 @@ public class DatabaseManager {
                 + ");";
 
         String createSpotTableSQL = "CREATE TABLE IF NOT EXISTS ParkingSpots ("
-                + " spot_id TEXT PRIMARY KEY," // e.g., "A1", "B5"
-                + " location_info TEXT,"      // e.g., "Floor 1, Near Entrance"
-                + " type TEXT DEFAULT 'Standard'" // e.g., Standard, EV, Disabled
+                + " spot_id TEXT PRIMARY KEY,"
+                + " location_info TEXT,"
+                + " type TEXT DEFAULT 'Standard',"
+                + " hourly_rate REAL DEFAULT 2.5" // Added hourly rate column
                 + ");";
 
         // Using DATETIME for start/end times for more precision
@@ -91,17 +92,21 @@ public class DatabaseManager {
     // Helper method to add default parking spots if the table is empty
     private static void addDefaultSpots(Connection conn) {
         String checkSpotsSQL = "SELECT COUNT(*) FROM ParkingSpots;";
-        String insertSpotSQL = "INSERT INTO ParkingSpots(spot_id, location_info, type) VALUES(?, ?, ?);";
+        // Updated SQL to include hourly_rate
+        String insertSpotSQL = "INSERT INTO ParkingSpots(spot_id, location_info, type, hourly_rate) VALUES(?, ?, ?, ?);";
 
         try (Statement checkStmt = conn.createStatement();
              java.sql.ResultSet rs = checkStmt.executeQuery(checkSpotsSQL)) {
 
-            if (rs.next() && rs.getInt(1) == 0) { // Only insert if table is empty
+            if (rs.next() && rs.getInt(1) == 0) {
                 System.out.println("Adding default parking spots...");
                 try (java.sql.PreparedStatement insertStmt = conn.prepareStatement(insertSpotSQL)) {
-                    insertStmt.setString(1, "A1"); insertStmt.setString(2, "Floor 1"); insertStmt.setString(3, "Standard"); insertStmt.addBatch();
-                    insertStmt.setString(1, "A2"); insertStmt.setString(2, "Floor 1"); insertStmt.setString(3, "Standard"); insertStmt.addBatch();
-                    insertStmt.setString(1, "B1"); insertStmt.setString(2, "Floor 2"); insertStmt.setString(3, "EV"); insertStmt.addBatch();
+                    // Spot ID, Location, Type, Hourly Rate
+                    insertStmt.setString(1, "A1"); insertStmt.setString(2, "Floor 1"); insertStmt.setString(3, "Standard"); insertStmt.setDouble(4, 2.50); insertStmt.addBatch();
+                    insertStmt.setString(1, "A2"); insertStmt.setString(2, "Floor 1"); insertStmt.setString(3, "Standard"); insertStmt.setDouble(4, 2.50); insertStmt.addBatch();
+                    insertStmt.setString(1, "B1"); insertStmt.setString(2, "Floor 2"); insertStmt.setString(3, "EV"); insertStmt.setDouble(4, 3.50); insertStmt.addBatch(); // EV spot costs more
+                    insertStmt.setString(1, "C1"); insertStmt.setString(2, "Floor 1"); insertStmt.setString(3, "Disabled"); insertStmt.setDouble(4, 2.00); insertStmt.addBatch(); // Disabled spot might be cheaper
+
                     insertStmt.executeBatch();
                     System.out.println("Default spots added.");
                 }

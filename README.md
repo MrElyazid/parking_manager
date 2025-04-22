@@ -2,22 +2,23 @@
 
 ## Description
 
-This is a simple desktop application built with JavaFX to simulate a smart parking reservation system. It allows registered users to visually select and reserve parking spots for specific time slots and view their reservation history. An admin interface is provided to manage all reservations. The application uses an SQLite database for persistence.
+This is a simple desktop application built with JavaFX to simulate a smart parking reservation system. It allows registered users to visually select and reserve parking spots for specific time slots (using ComboBoxes for time input) and view their reservation history. An admin interface is provided to manage all reservations. The application uses an SQLite database for persistence and features variable pricing based on spot type.
 
 ## Features
 
 ### User Features:
 *   **User Registration & Login:** Users can register for an account and log in. Passwords are stored securely (hashed).
 *   **Visual Parking Lot:** View a representation of the parking lot.
-*   **Spot Availability Check:** Select a date and time range to see available spots visually marked.
-*   **Spot Selection:** Click on an available spot in the visual layout to select it for reservation.
+*   **Spot Availability Check:** Select a date and time range (using DatePicker and Hour/Minute ComboBoxes) to see available spots visually marked.
+*   **Spot Selection:** Click on an available spot in the visual layout to select it for reservation. Tooltips show spot type and hourly rate.
+*   **Variable Pricing:** Reservation cost is calculated based on the duration and the specific hourly rate associated with the selected spot type (e.g., EV spots may cost more).
 *   **Reservation Confirmation:** Confirm the reservation for the selected spot and time. Data is saved to the database.
 *   **Reservation History:** Logged-in users can view a table of their past and upcoming reservations.
 *   **Logout:** Users can log out of their account.
 
 ### Admin Features:
 *   **Admin Login:** Access the admin panel via a dedicated login button and dialog (using hardcoded credentials: `admin`/`password123`).
-*   **View All Reservations:** See a list of all reservations made by all users in a table format.
+*   **View All Reservations:** See a list of all reservations made by all users in a table format, including calculated price.
 *   **Manage Reservations:**
     *   **Refresh:** Update the list of all reservations displayed.
     *   **Delete:** Remove selected reservations from the system (database).
@@ -106,7 +107,7 @@ This is a simple desktop application built with JavaFX to simulate a smart parki
     *   Clean the project (remove previous builds).
     *   Download necessary dependencies (including the SQLite driver).
     *   Compile the source code.
-    *   Create the `smartparking.db` file and tables if they don't exist.
+    *   Create/update the `smartparking.db` file and tables if they don't exist. **Note:** If you encounter database schema errors after modifying the code (e.g., "no such column"), delete the existing `smartparking.db` file and run the command again to recreate the database with the latest schema.
     *   Run the JavaFX application.
 
 ## Credentials
@@ -121,8 +122,10 @@ This is a simple desktop application built with JavaFX to simulate a smart parki
 *   Implement password strength indicators and more robust hashing (e.g., BCrypt).
 *   Add functionality for users to cancel their own upcoming reservations.
 *   Enhance the admin panel to manage parking spots (add/edit/delete).
-*   Implement different pricing based on spot type or time of day.
-*   Add more detailed reporting for the admin.
-*   Refine UI/UX further (e.g., better visual feedback, loading indicators).
+*   Implement different pricing based on time of day or longer reservation durations (daily/weekly rates).
+*   Add more detailed reporting/analytics for the admin (e.g., using JavaFX Charts).
+*   Refine UI/UX further (e.g., better visual feedback, loading indicators, icons for spot types).
 *   Add unit and integration tests.
 *   Consider using a connection pool for database connections in a higher-load scenario.
+*   Implement Vehicle Management (allow users to register vehicles and link them to reservations).
+*   Support for Multiple Parking Lots/Levels.
