@@ -32,13 +32,13 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
-            <classifier>linux</classifier> <!-- Add classifier for your OS if needed -->
+            <classifier>win</classifier> <!-- Add classifier for your OS if needed -->
         </dependency>
          <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
             <version>${javafx.version}</version>
-             <classifier>linux</classifier> <!-- Add classifier for your OS if needed -->
+             <classifier>win</classifier> <!-- Add classifier for your OS if needed -->
         </dependency>
 
         <!-- SQLite JDBC Driver -->

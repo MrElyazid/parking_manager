@@ -21,7 +21,7 @@ public class MainApp extends Application {
 
         try {
             // Load the main FXML file (or maybe a login screen first later)
-            URL fxmlUrl = getClass().getResource("/com/smartparking/view/MainView.fxml");
+            URL fxmlUrl = getClass().getResource("/com/smartparking/view/HomeView.fxml");
             if (fxmlUrl == null) {
                 System.err.println("Cannot find FXML file. Make sure it's in the correct resources path.");
                 return; // Exit if FXML not found
