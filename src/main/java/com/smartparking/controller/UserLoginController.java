@@ -55,9 +55,11 @@ public class UserLoginController {
             System.out.println("User login successful: " + loggedInUser.getUsername());
             showMessage("Login successful!", Color.GREEN);
             this.setMainController(mainController);
+
             // Notify MainController or switch view
             if (mainController != null) {
                 mainController.handleUserLoginSuccess(loggedInUser);
+
             } else {
                  System.err.println("MainController reference not set in UserLoginController.");
                  showMessage("Login successful, but cannot switch view.", Color.ORANGE);

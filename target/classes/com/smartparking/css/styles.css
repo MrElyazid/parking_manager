@@ -182,6 +182,7 @@
 /* TextField and PasswordField */
 .text-field,
 .password-field {
+    -fx-min-width: 250px; /* instead of pref-width */
     -fx-pref-height: 40px;
     -fx-background-color: #fff;
     -fx-border-color: #ccc;
@@ -212,4 +213,119 @@
 #messageLabel {
     -fx-text-fill: red;
     -fx-font-weight: bold;
+}
+
+/* ParkingLot
+ */
+
+.combo-box, .date-picker {
+    -fx-pref-height: 30px;
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 4;
+    -fx-padding: 0 5 0 5;
+}
+
+.combo-box:hover, .date-picker:hover {
+    -fx-border-color: #4a4a8a;
+}
+
+/* Availability message */
+#availabilityMessageLabel {
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: lightgrey;
+    -fx-border-width: 1;
+}
+
+.spot-button-available {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-pref-width: 60;
+    -fx-pref-height: 40;
+}
+
+.spot-button-available:hover {
+    -fx-background-color: #3ecf5a;
+}
+
+.spot-button-reserved {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+}
+
+.spot-button-selected {
+    -fx-background-color: #ffc107;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+}
+
+
+.side-menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4a4a8a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+}
+
+.side-menu-button:hover {
+    -fx-background-color: #e8e8e8;
+}
+
+.side-menu-button:focused {
+    -fx-background-color: #d0d0ff;
+}
+
+
+
+/* VBox (inside ScrollPane) holding the cards */
+#cardContainer {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+}
+
+/* Individual reservation card */
+.reservation-card {
+    -fx-padding: 15;
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #4a4a8a;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);
+}
+
+/* Labels inside the card */
+.reservation-card .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Button inside the card */
+.reservation-card .button {
+    -fx-background-color: #4a4a8a;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-padding: 5 12;
+}
+
+/* Button hover effect */
+.reservation-card .button:hover {
+    -fx-background-color: #38386b;
 }

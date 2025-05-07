@@ -159,16 +159,23 @@ public class ParkingLotController {
         // For now, we check availability for each spot individually.
 
         for (ParkingSpot spot : allSpots) {
-            Button spotButton = new Button(spot.getSpotId());
-            spotButton.setPrefSize(60, 40);
+            String buttonLabel = String.format("%s\n$%.2f/hr", spot.getSpotId(), spot.getHourlyRate());
+            Button spotButton = new Button(buttonLabel);
+            spotButton.setPrefSize(80, 60);
             spotButton.getStyleClass().add("spot-button");
 
-            // Add Tooltip
-            String tooltipText = String.format("Type: %s\nRate: $%.2f/hr", spot.getType(), spot.getHourlyRate());
+            // Tooltip
+            String tooltipText = String.format(
+                    "Spot ID: %s\nType: %s\nLocation: %s\nRate: $%.2f/hr",
+                    spot.getSpotId(),
+                    spot.getType(),
+                    spot.getLocationInfo(),
+                    spot.getHourlyRate()
+            );
             Tooltip tooltip = new Tooltip(tooltipText);
             spotButton.setTooltip(tooltip);
 
-            // Add type-specific style class
+            // Type-based style
             switch (spot.getType().toLowerCase()) {
                 case "ev":
                     spotButton.getStyleClass().add("spot-button-ev");
@@ -176,24 +183,49 @@ public class ParkingLotController {
                 case "disabled":
                     spotButton.getStyleClass().add("spot-button-disabled");
                     break;
-                default: // Standard or other types
+                default:
                     spotButton.getStyleClass().add("spot-button-standard");
                     break;
             }
 
+            // Price-based style
+            if (spot.getHourlyRate() > 5) {
+                spotButton.getStyleClass().add("spot-button-premium");
+            } else if (spot.getHourlyRate() < 2) {
+                spotButton.getStyleClass().add("spot-button-budget");
+            }
 
             boolean isAvailable = reservationService.isSpotAvailable(spot.getSpotId(), start, end);
 
             if (isAvailable) {
                 spotButton.getStyleClass().add("spot-button-available");
-                spotButton.setOnAction(e -> handleSpotSelection(spotButton, spot));
+                spotButton.setOnAction(e -> {
+                    handleSpotSelection(spotButton, spot);
+                    showSpotDetailsDialog(spot);
+                });
                 buttonSpotMap.put(spotButton, spot);
             } else {
                 spotButton.getStyleClass().add("spot-button-reserved");
                 spotButton.setDisable(true);
             }
+
             parkingGrid.getChildren().add(spotButton);
         }
+
+    }
+    private void showSpotDetailsDialog(ParkingSpot spot) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Parking Spot Details");
+        alert.setHeaderText("Details for Spot " + spot.getSpotId());
+        String content = String.format(
+                "Spot ID: %s\nType: %s\nLocation: %s\nRate: $%.2f/hr",
+                spot.getSpotId(),
+                spot.getType(),
+                spot.getLocationInfo(),
+                spot.getHourlyRate()
+        );
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     private void handleSpotSelection(Button button, ParkingSpot spot) {

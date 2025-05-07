@@ -41,6 +41,8 @@ public class MainController {
     private void initialize() {
         System.out.println("MainController initialized.");
         // Load login view by default
+        updateUIForLoginState(); // Set initial state
+
         loadUserLoginView();
         statusLabel.setText("Please log in or register.");
     }
@@ -133,18 +135,53 @@ public class MainController {
 
 
 
-
+    private boolean isLoggedIn() {
+        return currentLoggedInUser != null;
+    }
 
     public void handleUserLoginSuccess(User user) {
         this.currentLoggedInUser = user;
         System.out.println("Login successful for user: " + user.getUsername());
         // Load the parking lot view for the logged-in user
+        updateUIForLoginState();
+
         loadParkingLotView();
         // Update UI elements
         statusLabel.setText("Logged in as: " + user.getUsername() + ". Select date/time and check availability.");
         // Show user-specific buttons, hide admin login?
         if (historyButton != null) { historyButton.setVisible(true); historyButton.setManaged(true); }
         if (logoutButton != null) { logoutButton.setVisible(true); logoutButton.setManaged(true); }
+    }
+    private void updateUIForLoginState() {
+        boolean loggedIn = isLoggedIn();
+
+        // Update top navigation
+        if (mainBorderPane.getTop() != null) {
+            mainBorderPane.getTop().setVisible(loggedIn);
+            mainBorderPane.getTop().setManaged(loggedIn);
+        }
+
+        // Update left menu
+        if (mainBorderPane.getLeft() != null) {
+            mainBorderPane.getLeft().setVisible(loggedIn);
+            mainBorderPane.getLeft().setManaged(loggedIn);
+        }
+
+        // Update bottom status
+        if (mainBorderPane.getBottom() != null) {
+            mainBorderPane.getBottom().setVisible(loggedIn);
+            mainBorderPane.getBottom().setManaged(loggedIn);
+        }
+
+        // Update buttons
+        if (historyButton != null) {
+            historyButton.setVisible(loggedIn);
+            historyButton.setManaged(loggedIn);
+        }
+        if (logoutButton != null) {
+            logoutButton.setVisible(loggedIn);
+            logoutButton.setManaged(loggedIn);
+        }
     }
 
     /** Handles the action for the "My History" button. */
@@ -168,6 +205,8 @@ public class MainController {
         if (historyButton != null) { historyButton.setVisible(false); historyButton.setManaged(false); }
         if (logoutButton != null) { logoutButton.setVisible(false); logoutButton.setManaged(false); }
         // Return to login screen
+        updateUIForLoginState(); // Set initial state
+
         loadUserLoginView();
         statusLabel.setText("Logged out. Please log in or register.");
     }
@@ -212,6 +251,12 @@ public class MainController {
              statusLabel.setText("Error loading Admin Panel.");
          }
      }
+    @FXML
+    private void handleGoToReservation() {
+
+            this.loadParkingLotView();
+
+    }
 
 
     /**

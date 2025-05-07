@@ -15,7 +15,8 @@
 
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.smartparking.controller.ParkingLotController">
+            fx:controller="com.smartparking.controller.ParkingLotController"
+            stylesheets="@/com/smartparking/css/styles.css">
     <padding>
         <Insets top="15.0" right="20.0" bottom="15.0" left="20.0" />
     </padding>

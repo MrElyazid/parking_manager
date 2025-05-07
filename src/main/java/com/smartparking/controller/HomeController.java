@@ -10,38 +10,29 @@ import java.io.IOException;
 
 public class HomeController {
 
-    private MainController mainController;
-
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
-    }
-
-    // In HomeController.java
     @FXML
-    private void handleSignInButtonClick() {
+    public void handleSignInButtonClick() {
         try {
-            // 1. FIRST load MainView to get MainController instance
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/com/smartparking/view/MainView.fxml"));
-            Parent mainRoot = mainLoader.load();
-            MainController mainController = mainLoader.getController();
+            // Load the MainView.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/smartparking/view/MainView.fxml"));
+            Parent loginRoot = loader.load();
 
-            // 2. NOW load LoginView with the MainController reference
-            FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/com/smartparking/view/UserLoginView.fxml"));
-            Parent loginRoot = loginLoader.load();
-            UserLoginController loginController = loginLoader.getController();
-            loginController.setMainController(mainController); // Proper connection
+            // Create a new stage for the login view
+            Stage stage = new Stage();
+            stage.setScene(new Scene(loginRoot, 1200, 700));
 
-            // 3. Show login window
-            Stage loginStage = new Stage();
-            loginStage.setScene(new Scene(loginRoot, 450, 400));
-            loginStage.setTitle("User Login");
-            loginStage.show();
+            // Set the window title
+            stage.setTitle("Parking App");
+
+            // Set the stage to fullscreen
+
+            // Show the new stage (MainView)
+            stage.show();
+
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 }

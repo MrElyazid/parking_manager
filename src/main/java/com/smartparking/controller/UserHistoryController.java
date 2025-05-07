@@ -13,19 +13,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.text.NumberFormat;
 import java.util.List;
 
 public class UserHistoryController {
 
-    @FXML private TableView<Reservation> historyTable;
-    @FXML private TableColumn<Reservation, Integer> reservationIdColumn;
-    @FXML private TableColumn<Reservation, String> spotIdColumn;
-    @FXML private TableColumn<Reservation, String> startTimeColumn;
-    @FXML private TableColumn<Reservation, String> endTimeColumn;
-    @FXML private TableColumn<Reservation, Double> priceColumn;
-    @FXML private TableColumn<Reservation, String> bookedAtColumn;
+    @FXML private VBox cardContainer;
 
     private MainController mainController;
     private User currentUser;
@@ -48,43 +43,52 @@ public class UserHistoryController {
     @FXML
     private void initialize() {
         // Configure table columns
-        reservationIdColumn.setCellValueFactory(new PropertyValueFactory<>("reservationId"));
-        spotIdColumn.setCellValueFactory(new PropertyValueFactory<>("spotId"));
-        startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("formattedStartTime"));
-        endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("formattedEndTime"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("calculatedPrice"));
-        bookedAtColumn.setCellValueFactory(new PropertyValueFactory<>("formattedCreationTimestamp"));
 
-        // Format price column
-        priceColumn.setCellFactory(tc -> new TableCell<Reservation, Double>() {
-            @Override
-            protected void updateItem(Double price, boolean empty) {
-                super.updateItem(price, empty);
-                if (empty || price == null) {
-                    setText(null);
-                } else {
-                    setText(CURRENCY_FORMAT.format(price));
-                }
-            }
-        });
 
-        historyTable.setItems(userReservations);
 
-         // Add placeholder for empty table
-        historyTable.setPlaceholder(new Label("No reservation history found."));
+    }
+    private VBox createReservationCard(Reservation reservation) {
+        VBox card = new VBox(8);
+        card.getStyleClass().add("reservation-card");
+
+        Label spotId = new Label("Spot ID: " + reservation.getSpotId());
+        Label Time = new Label("From: " + reservation.getFormattedStartTime()+" to :"+reservation.getFormattedEndTime());
+        Label price = new Label("Price: " + CURRENCY_FORMAT.format(reservation.getCalculatedPrice()));
+        Label bookedAt = new Label("Booked At: " + reservation.getFormattedCreationTimestamp());
+
+        Button modifyButton = new Button("Modify");
+        modifyButton.setOnAction(e -> handleModifyReservation(reservation));
+
+        card.getChildren().addAll(spotId ,Time, price, bookedAt, modifyButton);
+        return card;
     }
 
+    private void handleModifyReservation(Reservation reservation) {
+        // TODO: implement the logic to modify the reservation
+        System.out.println("Modify clicked for reservation ID: " + reservation.getReservationId());
+        showAlert(Alert.AlertType.INFORMATION, "Modify", "Modify reservation feature is not yet implemented.");
+    }
+
+
+
     private void loadHistory() {
+        cardContainer.getChildren().clear();
+
         if (currentUser != null) {
             List<Reservation> history = reservationService.getReservationsForUser(currentUser.getUserId());
-            userReservations.setAll(history);
+
+            for (Reservation reservation : history) {
+                VBox card = createReservationCard(reservation);
+                cardContainer.getChildren().add(card);
+            }
+
             System.out.println("Loaded " + history.size() + " reservations for user " + currentUser.getUsername());
         } else {
             System.err.println("Cannot load history: current user is null.");
-            userReservations.clear(); // Clear table if no user
-             showAlert(Alert.AlertType.ERROR, "Error", "Could not load history because user is not identified.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not load history because user is not identified.");
         }
     }
+
 
     @FXML
     private void handleRefresh() {
@@ -92,16 +96,7 @@ public class UserHistoryController {
         loadHistory();
     }
 
-    @FXML
-    private void handleGoToReservation() {
-        if (mainController != null) {
-            System.out.println("Navigating to parking lot view...");
-            mainController.loadParkingLotView();
-        } else {
-             System.err.println("MainController reference not set in UserHistoryController.");
-             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Cannot navigate to reservation screen.");
-        }
-    }
+
 
     // TODO: Add handleCancelReservation method if needed
 

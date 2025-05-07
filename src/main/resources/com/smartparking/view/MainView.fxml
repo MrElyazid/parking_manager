@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="mainBorderPane" prefHeight="465.0" prefWidth="1008.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartparking.controller.MainController">
+<BorderPane fx:id="mainBorderPane" prefHeight="465.0" prefWidth="1008.0" stylesheets="@/com/smartparking/css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartparking.controller.MainController">
 
 
 
@@ -18,8 +18,7 @@
                         <Image url="@../images/image.png" />
                     </image>
                 </ImageView>
-                <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="historyButton" managed="false" onAction="#handleShowHistory" style="-fx-background-color: #6c757d;" text="My History" visible="false" />
+                <Region prefHeight="38.0" prefWidth="871.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="logoutButton" managed="false" onAction="#handleLogout" style="-fx-background-color: #ffc107; -fx-text-fill: black;" text="Logout" visible="false" />
 
             </children>
@@ -41,20 +40,20 @@
     <bottom>
          <Label fx:id="statusLabel" styleClass="status-label" text="Status: Ready" />
     </bottom>
-   <left >
-      <VBox prefHeight="387.0" prefWidth="113.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <children >
-            <Region prefHeight="76.0" prefWidth="130.0" />
-            <Label prefHeight="31.0" prefWidth="130.0" text="Ajouter Reservation" />
-            <Label prefHeight="28.0" prefWidth="130.0" text="Historique" />
-            <Label prefHeight="46.0" prefWidth="174.0" text="Help" />
-            <Label prefHeight="26.0" prefWidth="130.0" text="LogOut" />
-            <Region prefHeight="200.0" prefWidth="200.0" />
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
+    <left>
+        <VBox prefHeight="361.0" prefWidth="194.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Region prefHeight="76.0" prefWidth="130.0" />
+                <Button styleClass="side-menu-button" onAction="#handleGoToReservation" text="New Reservation" />
+                <Button onAction="#handleShowHistory" styleClass="side-menu-button" text="History" />
+                <Button styleClass="side-menu-button" text="Help" />
+                <Button onAction="#handleLogout" styleClass="side-menu-button" text="LogOut" />
+                <Region prefHeight="200.0" prefWidth="200.0" />
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
+            </BorderPane.margin>
+        </VBox>
+    </left>
 
 </BorderPane>

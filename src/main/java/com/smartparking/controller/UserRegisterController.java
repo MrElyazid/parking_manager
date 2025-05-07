@@ -80,16 +80,19 @@ public class UserRegisterController {
 
     @FXML
     private void handleGoToLogin() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/smartparking/view/UserLoginView.fxml"));
-        Parent loginRoot = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/smartparking/view/MainView.fxml"));
+            Parent loginRoot = loader.load();
+            // Get the current stage from any control inside the window (like usernameField)
+            Stage stage = (Stage) usernameField.getScene().getWindow();
 
-        // Get the current stage from any control inside the window (like usernameField)
-        Stage stage = (Stage) usernameField.getScene().getWindow();
-
-        // Set a new scene or replace the root
-        stage.getScene().setRoot(loginRoot);
+            stage.getScene().setRoot(loginRoot);
 
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            showMessage("Cannot navigate to registration.", Color.RED);
+        }
     }
 
      private void showMessage(String message, Color color) {

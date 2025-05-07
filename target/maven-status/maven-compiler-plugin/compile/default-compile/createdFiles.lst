@@ -8,7 +8,6 @@ com\smartparking\model\ParkingSpot.class
 com\smartparking\service\SpotService.class
 com\smartparking\controller\HomeController.class
 com\smartparking\util\DatabaseManager.class
-com\smartparking\controller\UserHistoryController$1.class
 com\smartparking\controller\UserHistoryController.class
 com\smartparking\controller\AdminPanelController$1.class
 com\smartparking\model\User.class
