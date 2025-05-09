@@ -26,6 +26,9 @@ import javafx.scene.control.DialogPane; // Import DialogPane
 import javafx.scene.control.TextField; // Import TextField
 import javafx.fxml.FXMLLoader; // Import FXMLLoader
 import javafx.scene.layout.GridPane; // Import GridPane
+import javafx.stage.Stage; // Import Stage
+import javafx.scene.Parent; // Import Parent
+import javafx.scene.Scene; // Import Scene
 import java.io.IOException; // Import IOException
 
 import java.text.NumberFormat; // For currency formatting
@@ -40,6 +43,12 @@ import java.util.Comparator; // Import Comparator
 import java.util.stream.Collectors; // Import Collectors
 
 public class AdminPanelController {
+
+    private MainController mainController;
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
     @FXML private TableView<Reservation> reservationsTable;
 
@@ -547,4 +556,35 @@ public class AdminPanelController {
     }
 
     // Add other methods for admin actions (e.g., editing)
+
+    @FXML
+    private void handleLogout() {
+        System.out.println("Logout button clicked by admin. Navigating to HomeView.");
+        try {
+            // Get the current stage
+            Stage currentStage = (Stage) adminTabPane.getScene().getWindow();
+
+            // Load the HomeView.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/smartparking/view/HomeView.fxml"));
+            Parent homeRoot = loader.load();
+            
+            // Set the HomeView as the new scene on the current stage
+            Scene homeScene = new Scene(homeRoot);
+            // Explicitly add the stylesheet
+            String cssPath = getClass().getResource("/com/smartparking/css/styles.css").toExternalForm();
+            homeScene.getStylesheets().add(cssPath);
+            
+            currentStage.setScene(homeScene);
+            currentStage.setTitle("Smart Parking - Welcome");
+            // Resetting to a typical home view size, adjust if necessary
+            currentStage.setWidth(800); 
+            currentStage.setHeight(600);
+            currentStage.centerOnScreen();
+            // currentStage.setFullScreen(false); // Ensure not fullscreen if previously set
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(AlertType.ERROR, "Logout Error", "Could not load the home page.");
+        }
+    }
 }

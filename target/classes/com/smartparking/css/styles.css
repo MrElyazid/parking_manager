@@ -361,77 +361,101 @@
     -fx-background-color: #38386b;
 }
 
-/* ==== Admin Panel Styles ==== */
+/* ==== Admin Panel Styles (Refined) ==== */
 .admin-panel {
-    -fx-background-color: #ECEFF1; /* Light blue-gray background */
-    -fx-padding: 10px;
+    -fx-background-color: #f4f6f8; /* Lighter, cleaner background */
+    -fx-font-family: "System", Arial, sans-serif; /* More neutral font */
+}
+
+.admin-panel .tab-pane {
+    -fx-tab-min-height: 35px; /* Adjust tab height */
+    -fx-tab-max-height: 35px;
+}
+
+.admin-panel .tab-pane > .tab-header-area {
+    -fx-background-color: #e0e0e0; /* Light gray for tab header background */
+    -fx-padding: 0;
 }
 
 .admin-panel .tab-pane > .tab-header-area > .headers-region > .tab {
-    -fx-background-color: #CFD8DC; /* Lighter blue-gray for unselected tabs */
-    -fx-padding: 8px 15px;
-    -fx-font-size: 13px;
+    -fx-background-color: #e0e0e0; /* Light gray for unselected tabs */
+    -fx-background-insets: 0;
+    -fx-padding: 10px 20px; /* More padding for tabs */
+    -fx-font-size: 14px; /* Slightly larger font for tabs */
     -fx-font-weight: bold;
-    -fx-text-fill: #37474F; /* Darker blue-gray text */
-    -fx-border-color: #B0BEC5;
-    -fx-border-width: 0 1px 1px 0; /* Bottom and right border */
+    -fx-text-fill: #555;
+    -fx-border-color: transparent; /* No borders for cleaner look */
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
 }
 
 .admin-panel .tab-pane > .tab-header-area > .headers-region > .tab:selected {
-    -fx-background-color: #FFFFFF; /* White for selected tab */
-    -fx-border-color: #B0BEC5 #B0BEC5 #FFFFFF #B0BEC5; /* Top, right, bottom(transparent), left */
-    -fx-border-width: 1px 1px 0 1px;
+    -fx-background-color: #ffffff; /* White for selected tab */
+    -fx-text-fill: #007AFF; /* Primary blue for selected tab text */
+    -fx-border-color: #d0d0d0 #d0d0d0 transparent #d0d0d0; /* Subtle border */
+    -fx-border-width: 1px;
 }
 
 .admin-panel .tab-pane > .tab-header-area > .headers-region > .tab:hover {
-    -fx-background-color: #B0BEC5; /* Slightly darker on hover */
+    -fx-background-color: #d8d8d8; /* Slightly darker on hover */
 }
 
 .admin-panel .tab-pane .tab-content-area {
-    -fx-background-color: #FFFFFF; /* White background for tab content */
-    -fx-padding: 15px;
-    -fx-border-color: #B0BEC5;
-    -fx-border-width: 1px;
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px; /* More padding in content area */
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 1px 1px 1px; /* Border on sides and bottom */
 }
 
 .admin-panel .label {
     -fx-font-size: 14px;
-    -fx-text-fill: #263238; /* Dark gray text */
+    -fx-text-fill: #333333; /* Standard dark gray text */
 }
 
 .admin-panel .table-view {
-    -fx-border-color: #CFD8DC;
-    -fx-border-radius: 3px;
+    -fx-border-color: #cccccc; /* Lighter border for table */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-selection-bar: #007AFF; /* Blue selection bar */
+    -fx-selection-bar-text: white;
 }
 
 .admin-panel .table-view .column-header-background {
-    -fx-background-color: #78909C; /* Medium blue-gray for header */
+    -fx-background-color: #f0f0f0; /* Light gray for header */
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0 0 1px 0; /* Bottom border for header */
+}
+
+.admin-panel .table-view .column-header {
+    -fx-background-color: transparent; /* Ensure no double background */
 }
 
 .admin-panel .table-view .column-header .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #333333; /* Dark text for header */
     -fx-font-weight: bold;
     -fx-font-size: 13px;
-    -fx-padding: 8px;
+    -fx-padding: 10px 8px; /* More padding in header cells */
 }
 
 .admin-panel .table-view .table-row-cell {
-    -fx-padding: 8px 5px; /* Increased vertical padding */
+    -fx-padding: 4px 8px; /* Slightly reduced vertical padding */
     -fx-font-size: 13px;
-    -fx-cell-size: 35px; /* Explicitly set cell height */
+    -fx-cell-size: 45px; /* Increased cell height */
+    -fx-border-color: transparent #e0e0e0 transparent transparent; 
+    -fx-border-width: 0 1px 0 0; 
+    -fx-alignment: CENTER_LEFT; /* Align text to the left of the cell */
 }
 
 .admin-panel .table-view .table-row-cell:odd {
-    -fx-background-color: #ECEFF1; /* Very light blue-gray for odd rows */
+    -fx-background-color: #f9f9f9; /* Very light gray for odd rows */
 }
 
 .admin-panel .table-view .table-row-cell:even {
-    -fx-background-color: #FFFFFF; /* White for even rows */
+    -fx-background-color: #ffffff; /* White for even rows */
 }
 
 .admin-panel .table-view .table-row-cell:selected {
-    -fx-background-color: #546E7A; /* Darker blue-gray for selected row */
-    -fx-text-fill: white;
+    -fx-background-color: #007AFF; /* Primary blue for selected row */
 }
 .admin-panel .table-view .table-row-cell:selected .text {
     -fx-fill: white;
@@ -439,43 +463,59 @@
 
 
 .admin-panel-section-title {
-    -fx-font-size: 18px;
+    -fx-font-size: 20px; /* Larger section titles */
     -fx-font-weight: bold;
-    -fx-text-fill: #37474F; /* Dark blue-gray */
-    -fx-padding-bottom: 10px;
+    -fx-text-fill: #007AFF; /* Primary blue for titles */
+    -fx-padding-bottom: 15px; /* More space below title */
+    -fx-border-color: transparent transparent #e0e0e0 transparent; /* Bottom border */
+    -fx-border-width: 1px;
+    -fx-alignment: CENTER_LEFT;
 }
 
 .admin-panel .button { /* General button style within admin panel */
-    -fx-background-color: #546E7A; /* Blue-gray */
+    -fx-background-color: #007AFF; /* Primary blue */
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 4px;
-    -fx-padding: 8px 15px;
-    -fx-font-size: 13px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px; /* Larger padding for buttons */
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 1, 2); /* Subtle shadow */
 }
 
 .admin-panel .button:hover {
-    -fx-background-color: #455A64; /* Darker blue-gray */
+    -fx-background-color: #005ecb; /* Darker blue on hover */
 }
 
-/* Specific styling for delete buttons if needed, e.g., red */
 .admin-panel .delete-button {
-    -fx-background-color: #E57373; /* Light red */
+    -fx-background-color: #FF3B30; /* iOS-like red for delete */
 }
 .admin-panel .delete-button:hover {
-    -fx-background-color: #EF5350; /* Red */
+    -fx-background-color: #D92C20; /* Darker red */
 }
 
-.admin-panel .grid-pane { /* For statistics tab */
-    -fx-padding: 10px;
+.admin-panel .grid-pane { /* For statistics tab and dialogs */
+    -fx-padding: 15px;
 }
 
 .admin-panel .grid-pane .label {
     -fx-font-size: 14px;
-    -fx-padding: 5px 0;
+    -fx-padding: 8px 0; /* More padding for grid labels */
 }
 
 .admin-panel .grid-pane .label-bold { /* For statistic titles */
     -fx-font-weight: bold;
-    -fx-text-fill: #37474F;
+    -fx-text-fill: #333333;
+}
+
+/* Logout Button Style */
+.logout-button {
+    -fx-background-color: #FF9500; /* Orange for logout, distinct color */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 15px;
+    -fx-font-size: 13px;
+}
+.logout-button:hover {
+    -fx-background-color: #E68600; /* Darker orange */
 }

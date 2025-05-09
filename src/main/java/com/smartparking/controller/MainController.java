@@ -198,7 +198,7 @@ public class MainController {
 
      /** Handles the action for the "Logout" button. */
     @FXML
-    private void handleLogout() {
+    public void handleLogout() { // Changed to public
         System.out.println("User logging out: " + (currentLoggedInUser != null ? currentLoggedInUser.getUsername() : "null"));
         currentLoggedInUser = null;
         // Hide user-specific buttons, show admin login
@@ -224,7 +224,15 @@ public class MainController {
                  return;
              }
 
-             Parent adminRoot = FXMLLoader.load(adminPanelUrl);
+             FXMLLoader loader = new FXMLLoader(adminPanelUrl); // Use FXMLLoader instance
+             Parent adminRoot = loader.load();
+
+             // Pass MainController reference to AdminPanelController
+             Object controller = loader.getController();
+             if (controller instanceof AdminPanelController) {
+                 ((AdminPanelController) controller).setMainController(this);
+             }
+
 
              // Get the main layout's BorderPane
              BorderPane mainLayout = (BorderPane) statusLabel.getScene().getRoot();

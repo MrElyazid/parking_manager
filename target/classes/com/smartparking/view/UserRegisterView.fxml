@@ -4,35 +4,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefWidth="400 " spacing="20" styleClass="login-register-view" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartparking.controller.UserRegisterController">
-    <padding>
-        <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
-    </padding>
+<VBox alignment="CENTER" prefWidth="421.0" spacing="20" styleClass="login-register-view" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartparking.controller.UserRegisterController">
+    <!-- Padding is now handled by .login-register-view CSS -->
 
-    <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #4a4a8a;" text="Register New User" />
+    <Label styleClass="title-label" text="Create Account" /> <!-- Applied title-label styleClass -->
 
-    <GridPane alignment="CENTER" hgap="10" vgap="10">
-        <columnConstraints> <!-- Adjusted width -->
-            <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
-        </columnConstraints>
-        <TextField fx:id="usernameField" prefHeight="1.0" prefWidth="340.0" promptText="Choose a username" GridPane.rowIndex="0" />
-        <PasswordField fx:id="passwordField" promptText="Enter password" GridPane.rowIndex="1" />
-        <PasswordField fx:id="confirmPasswordField" promptText="Re-enter password" GridPane.rowIndex="2" />
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
-    </GridPane>
+    <VBox styleClass="login-register-content-box" alignment="CENTER" spacing="20"> <!-- Added content-box wrapper -->
+        <GridPane alignment="CENTER" hgap="15" vgap="15"> <!-- Increased gaps -->
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
 
-    <Label fx:id="messageLabel" managed="false" style="-fx-text-fill: red;" text="Error Message" visible="false" />
+            <TextField fx:id="usernameField" promptText="Choose a username" GridPane.rowIndex="0" />
+            <PasswordField fx:id="passwordField" promptText="Enter password" GridPane.rowIndex="1" />
+            <PasswordField fx:id="confirmPasswordField" promptText="Re-enter password" GridPane.rowIndex="2" />
+        </GridPane>
 
-    <VBox alignment="CENTER" spacing="10">
-        <Button fx:id="registerButton" defaultButton="true" maxWidth="Infinity" onAction="#handleRegister" styleClass="reserve-button" text="Register" />
-        <HBox alignment="CENTER" spacing="5">
-             <Label text="Already have an account?" />
-             <Hyperlink onAction="#handleGoToLogin" text="Login here" />
-        </HBox>
+        <Label fx:id="messageLabel" managed="false" text="Error Message" visible="false" /> <!-- Removed inline style, will be handled by #messageLabel CSS -->
+
+        <VBox alignment="CENTER" spacing="15"> <!-- Increased spacing -->
+            <Button fx:id="registerButton" defaultButton="true" maxWidth="Infinity" onAction="#handleRegister" styleClass="login-register-button" text="Register" /> <!-- Changed styleClass -->
+            <HBox alignment="CENTER" spacing="5">
+                 <Label text="Already have an account?" />
+                 <Hyperlink onAction="#handleGoToLogin" text="Login here" />
+            </HBox>
+        </VBox>
     </VBox>
-
 </VBox>

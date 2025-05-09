@@ -26,11 +26,13 @@
 
     <!-- Padding removed, handled by .admin-panel styleClass -->
 
-    <Label text="Admin Panel" styleClass="admin-panel-section-title" alignment="CENTER" maxWidth="Infinity"> <!-- Centered Title -->
+    <HBox alignment="CENTER_LEFT" spacing="10" maxWidth="Infinity">
+        <Label text="Admin Panel" styleClass="admin-panel-section-title" HBox.hgrow="ALWAYS"/>
+        <Button text="Logout" onAction="#handleLogout" styleClass="logout-button"/>
         <VBox.margin>
-            <Insets top="10" bottom="10"/>
+            <Insets top="10" bottom="10" left="10" right="10"/>
         </VBox.margin>
-    </Label>
+    </HBox>
 
     <TabPane fx:id="adminTabPane" VBox.vgrow="ALWAYS">
         <tabs>
