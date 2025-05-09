@@ -1,15 +1,15 @@
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\controller\AdminPanelController.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\controller\HomeController.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\controller\ParkingLotController.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\MainApp.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\controller\UserLoginController.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\service\UserService.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\util\DatabaseManager.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\controller\MainController.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\model\User.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\service\ReservationService.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\model\Reservation.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\controller\UserHistoryController.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\model\ParkingSpot.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\service\SpotService.java
-C:\Users\Dell Vostro 5 5000\Desktop\school\s7\ux\aprojet2\parking_manager\src\main\java\com\smartparking\controller\UserRegisterController.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/model/ParkingSpot.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/controller/AdminPanelController.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/controller/UserRegisterController.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/controller/HomeController.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/controller/MainController.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/util/DatabaseManager.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/service/ReservationService.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/model/User.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/controller/ParkingLotController.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/controller/UserLoginController.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/service/SpotService.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/service/UserService.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/model/Reservation.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/MainApp.java
+/Users/mohammedyassinebakhtaoui/Desktop/ParkingManager/parking_manager/src/main/java/com/smartparking/controller/UserHistoryController.java

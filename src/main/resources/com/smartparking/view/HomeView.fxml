@@ -17,7 +17,7 @@
                   </image>
                </ImageView>
                <Region HBox.hgrow="ALWAYS" />
-               <Button   styleClass="admin-button" text="Sign Up" />
+               <Button onAction="#handleSignUpButtonClick" styleClass="admin-button" text="Sign Up" /> <!-- Added onAction -->
                <Button onAction="#handleSignInButtonClick"  styleClass="admin-button" text="Sign In" />
             </children>
          </HBox>

@@ -12,55 +12,200 @@
 <?import java.lang.Integer?> <!-- For Integer type -->
 <?import java.lang.String?>  <!-- For String type -->
 <?import java.lang.Double?>  <!-- For Double type -->
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import com.smartparking.model.ParkingSpot?> <!-- Import ParkingSpot model -->
+<?import javafx.scene.layout.GridPane?> <!-- Added GridPane import -->
+<!-- Chart imports definitively removed -->
 
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.smartparking.controller.AdminPanelController"
-      spacing="15" alignment="TOP_CENTER" styleClass="admin-panel">
+      spacing="0" alignment="TOP_CENTER" styleClass="admin-panel"> <!-- spacing to 0, padding handled by .admin-panel -->
 
-    <padding>
-        <Insets top="20" right="30" bottom="20" left="30"/>
-    </padding>
+    <!-- Padding removed, handled by .admin-panel styleClass -->
 
-    <Label text="Admin Panel - Manage Reservations" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #4a4a8a;"/>
+    <Label text="Admin Panel" styleClass="admin-panel-section-title" alignment="CENTER" maxWidth="Infinity"> <!-- Centered Title -->
+        <VBox.margin>
+            <Insets top="10" bottom="10"/>
+        </VBox.margin>
+    </Label>
 
-    <TableView fx:id="reservationsTable" prefHeight="400" VBox.vgrow="ALWAYS">
-        <columns>
-            <!-- Use fx:id to allow controller injection if needed -->
-            <TableColumn fx:id="reservationIdColumn" text="Res ID" prefWidth="70">
-                 <cellValueFactory><PropertyValueFactory property="reservationId" /></cellValueFactory>
-            </TableColumn>
-             <TableColumn fx:id="userIdColumn" text="User ID" prefWidth="70"> <!-- Added User ID -->
-                 <cellValueFactory><PropertyValueFactory property="userId" /></cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="spotIdColumn" text="Spot ID" prefWidth="80">
-                 <cellValueFactory><PropertyValueFactory property="spotId" /></cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="startTimeColumn" text="Start Time" prefWidth="160">
-                 <!-- Use the formatted getter method from Reservation model -->
-                 <cellValueFactory><PropertyValueFactory property="formattedStartTime" /></cellValueFactory>
-            </TableColumn>
-             <TableColumn fx:id="endTimeColumn" text="End Time" prefWidth="160">
-                 <cellValueFactory><PropertyValueFactory property="formattedEndTime" /></cellValueFactory>
-            </TableColumn>
-             <TableColumn fx:id="priceColumn" text="Price" prefWidth="90">
-                 <cellValueFactory><PropertyValueFactory property="calculatedPrice" /></cellValueFactory>
-                 <!-- Custom cell factory applied in controller -->
-            </TableColumn>
-             <TableColumn fx:id="createdTimestampColumn" text="Booked At" prefWidth="160">
-                 <cellValueFactory><PropertyValueFactory property="formattedCreationTimestamp" /></cellValueFactory>
-            </TableColumn>
-        </columns>
-         <!-- Enable column resizing -->
-        <columnResizePolicy>
-          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-       </columnResizePolicy>
-    </TableView>
+    <TabPane fx:id="adminTabPane" VBox.vgrow="ALWAYS">
+        <tabs>
+            <Tab text="Reservations">
+                <content>
+                    <VBox spacing="10" alignment="TOP_CENTER"> <!-- Reduced spacing -->
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/> <!-- Reduced padding -->
+                        </padding>
+                        <Label text="Manage Reservations" styleClass="admin-panel-section-title"/>
+                        <TableView fx:id="reservationsTable" VBox.vgrow="ALWAYS"> <!-- Removed prefHeight -->
+                            <columns>
+                                <!-- Use fx:id to allow controller injection if needed -->
+                                <TableColumn fx:id="reservationIdColumn" text="Res ID" prefWidth="70">
+                                    <cellValueFactory><PropertyValueFactory property="reservationId" /></cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="userIdColumn" text="Username" prefWidth="100"> <!-- Changed to Username -->
+                                    <!-- Cell value factory is set in the controller for custom display -->
+                                </TableColumn>
+                                <TableColumn fx:id="spotIdColumn" text="Spot ID" prefWidth="80">
+                                    <cellValueFactory><PropertyValueFactory property="spotId" /></cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="startTimeColumn" text="Start Time" prefWidth="160">
+                                    <!-- Use the formatted getter method from Reservation model -->
+                                    <cellValueFactory><PropertyValueFactory property="formattedStartTime" /></cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="endTimeColumn" text="End Time" prefWidth="160">
+                                    <cellValueFactory><PropertyValueFactory property="formattedEndTime" /></cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="priceColumn" text="Price" prefWidth="90">
+                                    <cellValueFactory><PropertyValueFactory property="calculatedPrice" /></cellValueFactory>
+                                    <!-- Custom cell factory applied in controller -->
+                                </TableColumn>
+                                <TableColumn fx:id="createdTimestampColumn" text="Booked At" prefWidth="160">
+                                    <cellValueFactory><PropertyValueFactory property="formattedCreationTimestamp" /></cellValueFactory>
+                                </TableColumn>
+                            </columns>
+                            <!-- Enable column resizing -->
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
+                        </TableView>
 
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Refresh List" onAction="#handleRefresh"/>
-        <Button text="Delete Selected" onAction="#handleDelete" styleClass="admin-button"/> <!-- Reuse admin button style for delete -->
-        <!-- Add other buttons like "Edit" if needed -->
-    </HBox>
+                        <HBox spacing="10" alignment="CENTER_RIGHT">
+                            <Button text="Refresh List" onAction="#handleRefresh"/>
+                            <Button text="Delete Selected" onAction="#handleDelete" styleClass="admin-button"/> <!-- Reuse admin button style for delete -->
+                            <!-- Add other buttons like "Edit" if needed -->
+                        </HBox>
+                    </VBox>
+                </content>
+            </Tab>
+            <!-- Timeline Tab definitively removed -->
+            <Tab text="Parking Spots">
+                <content>
+                    <VBox spacing="15" alignment="TOP_CENTER">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/> <!-- Reduced padding -->
+                        </padding>
+                        <Label text="Manage Parking Spots" styleClass="admin-panel-section-title"/>
+                        <TableView fx:id="parkingSpotsTable" VBox.vgrow="ALWAYS"> <!-- Removed prefHeight -->
+                            <columns>
+                                <TableColumn fx:id="spotIdColumnSpotsTab" text="Spot ID" prefWidth="120">
+                                    <cellValueFactory><PropertyValueFactory property="spotId" /></cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="locationInfoColumnSpotsTab" text="Location Info" prefWidth="250">
+                                    <cellValueFactory><PropertyValueFactory property="locationInfo" /></cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="typeColumnSpotsTab" text="Type" prefWidth="120">
+                                    <cellValueFactory><PropertyValueFactory property="type" /></cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="hourlyRateColumnSpotsTab" text="Hourly Rate" prefWidth="120">
+                                    <cellValueFactory><PropertyValueFactory property="hourlyRate" /></cellValueFactory>
+                                </TableColumn>
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
+                        </TableView>
+                        <HBox spacing="10" alignment="CENTER_RIGHT">
+                            <Button text="Refresh Spots" onAction="#handleRefreshSpots"/>
+                            <Button text="Add Spot" onAction="#handleAddSpot" styleClass="admin-button"/>
+                            <Button text="Edit Spot" onAction="#handleEditSpot" styleClass="admin-button"/>
+                            <Button text="Delete Spot" onAction="#handleDeleteSpot" styleClass="admin-button"/>
+                        </HBox>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Statistics">
+                <content>
+                    <VBox spacing="15" alignment="TOP_LEFT">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/> <!-- Reduced padding -->
+                        </padding>
+                        <Label text="Parking Statistics" styleClass="admin-panel-section-title"/>
+                        <GridPane hgap="10" vgap="10" styleClass="admin-panel-grid-pane"> <!-- Added styleClass -->
+                            <Label text="Total Revenue:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label-bold"/>
+                            <Label fx:id="statsTotalRevenueLabel" text="N/A" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                            <Label text="Average Reservation Duration:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="label-bold"/>
+                            <Label fx:id="statsAvgDurationLabel" text="N/A" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Total Parking Spots:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="label-bold"/>
+                            <Label fx:id="statsTotalSpotsLabel" text="N/A" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="Current Occupancy:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="label-bold"/>
+                            <Label fx:id="statsCurrentOccupancyLabel" text="N/A" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Most Popular Spot:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="label-bold"/>
+                            <Label fx:id="statsPopularSpotLabel" text="N/A" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                            <Label text="Peak Reservation Hour:" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="label-bold"/>
+                            <Label fx:id="statsPeakHourLabel" text="N/A" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                        </GridPane>
+                        <Button text="Refresh Statistics" onAction="#handleRefreshStatistics"/> <!-- styleClass="admin-button" removed to use general .admin-panel .button -->
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="User Inspection">
+                <content>
+                    <VBox spacing="15" alignment="TOP_CENTER">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/> <!-- Reduced padding -->
+                        </padding>
+                        <Label text="User Inspection" styleClass="admin-panel-section-title"/>
+                        <HBox spacing="10" VBox.vgrow="ALWAYS"> <!-- Reduced spacing -->
+                            <!-- User List Section -->
+                            <VBox spacing="5" HBox.hgrow="ALWAYS"> <!-- Reduced spacing -->
+                                <Label text="Users" styleClass="label-bold"/> <!-- Used label-bold -->
+                                <TableView fx:id="usersTable" VBox.vgrow="ALWAYS"> <!-- Removed prefHeight -->
+                                    <columns>
+                                        <TableColumn fx:id="userIdColumnUserTab" text="ID" prefWidth="70">
+                                            <cellValueFactory><PropertyValueFactory property="userId" /></cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn fx:id="usernameColumnUserTab" text="Username" prefWidth="180">
+                                            <cellValueFactory><PropertyValueFactory property="username" /></cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                </TableView>
+                            </VBox>
+
+                            <!-- User Details Section -->
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="User Details" styleClass="label-bold"/> <!-- Used label-bold -->
+                                <Label fx:id="selectedUsernameLabel" text="Selected User: None" style="-fx-font-weight: bold;"/> <!-- Kept specific bold -->
+                                <Label fx:id="totalReservationsLabel" text="Total Reservations: 0"/>
+                                <Label fx:id="totalPriceLabel" text="Total Spent: $0.00"/>
+                                <!-- Add more labels for other statistics -->
+
+                                <Label text="Reservation History" styleClass="label-bold"/> <!-- Used label-bold -->
+                                <TableView fx:id="userReservationsTable" VBox.vgrow="ALWAYS"> <!-- Removed prefHeight -->
+                                    <columns>
+                                        <TableColumn text="Res ID" prefWidth="70">
+                                            <cellValueFactory><PropertyValueFactory property="reservationId" /></cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Spot ID" prefWidth="80">
+                                            <cellValueFactory><PropertyValueFactory property="spotId" /></cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Start Time" prefWidth="160">
+                                            <cellValueFactory><PropertyValueFactory property="formattedStartTime" /></cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="End Time" prefWidth="160">
+                                            <cellValueFactory><PropertyValueFactory property="formattedEndTime" /></cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Price" prefWidth="90">
+                                            <cellValueFactory><PropertyValueFactory property="calculatedPrice" /></cellValueFactory>
+                                            <!-- Custom cell factory applied in controller -->
+                                        </TableColumn>
+                                    </columns>
+                                </TableView>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
 
 </VBox>

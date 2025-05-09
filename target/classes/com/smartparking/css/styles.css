@@ -158,54 +158,85 @@
  */
 /* style.css */
 
-/* Apply to the main VBox */
+/* Apply to the main VBox for Login/Register views */
 .login-register-view {
-    -fx-background-color: #f0f4f8;
-    -fx-padding: 30;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-color: linear-gradient(to bottom right, #64B5F6, #1976D2); /* Blue gradient background */
+    -fx-padding: 50; /* Increased padding */
+    -fx-alignment: center;
 }
 
-/* Style all labels */
-.label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #333;
+.login-register-view .label { /* General labels within these views */
+    -fx-text-fill: white; /* White text for better contrast on gradient */
 }
 
-/* Special style for the main title label */
-.label:title {
-    -fx-font-size: 24px;
+.login-register-view .title-label { /* Specific for the main title "User Login" / "User Registration" */
+    -fx-font-size: 32px; /* Larger font size */
     -fx-font-weight: bold;
-    -fx-text-fill: #086DFF;
+    -fx-text-fill: white;
+    -fx-padding-bottom: 20px; /* More space below title */
 }
 
-/* TextField and PasswordField */
-.text-field,
-.password-field {
-    -fx-min-width: 250px; /* instead of pref-width */
-    -fx-pref-height: 40px;
-    -fx-background-color: #fff;
-    -fx-border-color: #ccc;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-padding: 0 10 0 10;
+/* Styling for the content box (GridPane and buttons VBox) */
+.login-register-content-box {
+    -fx-background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    -fx-padding: 30;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 5); /* Softer shadow */
+    -fx-max-width: 400px;
+}
+
+
+.login-register-content-box .label { /* Labels inside the content box */
+     -fx-text-fill: #333; /* Dark text for readability on white background */
+     -fx-font-weight: normal;
+}
+
+
+/* TextField and PasswordField within login/register views */
+.login-register-view .text-field,
+.login-register-view .password-field {
+    -fx-pref-height: 45px; /* Slightly taller */
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #B0BEC5; /* Light blue-gray border */
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
 }
 
 /* Focus effect on TextField and PasswordField */
-.text-field:focused,
-.password-field:focused {
-    -fx-border-color: #086DFF;
-    -fx-effect: dropshadow(three-pass-box, #086DFF, 5, 0, 0, 0);
+.login-register-view .text-field:focused,
+.login-register-view .password-field:focused {
+    -fx-border-color: #1976D2; /* Primary blue border on focus */
+    -fx-background-color: #E3F2FD; /* Light blue background on focus */
+    -fx-effect: dropshadow(three-pass-box, rgba(25, 118, 210, 0.3), 5, 0, 0, 2);
 }
 
-
-/* Hyperlink */
-.hyperlink {
-    -fx-text-fill: #086DFF;
+/* Login/Register Button Style */
+.login-register-button {
+    -fx-background-color: #1E88E5; /* Vibrant blue */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 20px;
+    -fx-background-radius: 8px;
+    -fx-pref-height: 45px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 2, 2);
 }
 
-.hyperlink:hover {
-    -fx-text-fill: #0555cc;
+.login-register-button:hover {
+    -fx-background-color: #1565C0; /* Darker blue on hover */
+}
+
+/* Hyperlink in login/register views */
+.login-register-view .hyperlink {
+    -fx-text-fill: #1976D2; /* Primary blue */
+    -fx-font-size: 13px;
+}
+
+.login-register-view .hyperlink:hover {
+    -fx-text-fill: #0D47A1; /* Darker blue on hover */
     -fx-underline: true;
 }
 
@@ -328,4 +359,123 @@
 /* Button hover effect */
 .reservation-card .button:hover {
     -fx-background-color: #38386b;
+}
+
+/* ==== Admin Panel Styles ==== */
+.admin-panel {
+    -fx-background-color: #ECEFF1; /* Light blue-gray background */
+    -fx-padding: 10px;
+}
+
+.admin-panel .tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: #CFD8DC; /* Lighter blue-gray for unselected tabs */
+    -fx-padding: 8px 15px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #37474F; /* Darker blue-gray text */
+    -fx-border-color: #B0BEC5;
+    -fx-border-width: 0 1px 1px 0; /* Bottom and right border */
+}
+
+.admin-panel .tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: #FFFFFF; /* White for selected tab */
+    -fx-border-color: #B0BEC5 #B0BEC5 #FFFFFF #B0BEC5; /* Top, right, bottom(transparent), left */
+    -fx-border-width: 1px 1px 0 1px;
+}
+
+.admin-panel .tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-background-color: #B0BEC5; /* Slightly darker on hover */
+}
+
+.admin-panel .tab-pane .tab-content-area {
+    -fx-background-color: #FFFFFF; /* White background for tab content */
+    -fx-padding: 15px;
+    -fx-border-color: #B0BEC5;
+    -fx-border-width: 1px;
+}
+
+.admin-panel .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #263238; /* Dark gray text */
+}
+
+.admin-panel .table-view {
+    -fx-border-color: #CFD8DC;
+    -fx-border-radius: 3px;
+}
+
+.admin-panel .table-view .column-header-background {
+    -fx-background-color: #78909C; /* Medium blue-gray for header */
+}
+
+.admin-panel .table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 8px;
+}
+
+.admin-panel .table-view .table-row-cell {
+    -fx-padding: 8px 5px; /* Increased vertical padding */
+    -fx-font-size: 13px;
+    -fx-cell-size: 35px; /* Explicitly set cell height */
+}
+
+.admin-panel .table-view .table-row-cell:odd {
+    -fx-background-color: #ECEFF1; /* Very light blue-gray for odd rows */
+}
+
+.admin-panel .table-view .table-row-cell:even {
+    -fx-background-color: #FFFFFF; /* White for even rows */
+}
+
+.admin-panel .table-view .table-row-cell:selected {
+    -fx-background-color: #546E7A; /* Darker blue-gray for selected row */
+    -fx-text-fill: white;
+}
+.admin-panel .table-view .table-row-cell:selected .text {
+    -fx-fill: white;
+}
+
+
+.admin-panel-section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #37474F; /* Dark blue-gray */
+    -fx-padding-bottom: 10px;
+}
+
+.admin-panel .button { /* General button style within admin panel */
+    -fx-background-color: #546E7A; /* Blue-gray */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 15px;
+    -fx-font-size: 13px;
+}
+
+.admin-panel .button:hover {
+    -fx-background-color: #455A64; /* Darker blue-gray */
+}
+
+/* Specific styling for delete buttons if needed, e.g., red */
+.admin-panel .delete-button {
+    -fx-background-color: #E57373; /* Light red */
+}
+.admin-panel .delete-button:hover {
+    -fx-background-color: #EF5350; /* Red */
+}
+
+.admin-panel .grid-pane { /* For statistics tab */
+    -fx-padding: 10px;
+}
+
+.admin-panel .grid-pane .label {
+    -fx-font-size: 14px;
+    -fx-padding: 5px 0;
+}
+
+.admin-panel .grid-pane .label-bold { /* For statistic titles */
+    -fx-font-weight: bold;
+    -fx-text-fill: #37474F;
 }
