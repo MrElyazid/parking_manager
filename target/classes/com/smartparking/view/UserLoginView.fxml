@@ -31,6 +31,8 @@
                 <Label text="Don't have an account?" />
                 <Hyperlink onAction="#handleGoToRegister" text="Register here" />
             </HBox>
+                <Button fx:id="backHomeButton" onAction="#handleBackHome" text="Back to Home" styleClass="back-home-button" maxWidth="Infinity" />
+
         </VBox>
     </VBox>
 </VBox>

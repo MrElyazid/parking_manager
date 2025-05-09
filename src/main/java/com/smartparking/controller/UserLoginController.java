@@ -99,6 +99,29 @@ public class UserLoginController {
         }
     }
 
+@FXML
+private void handleBackHome() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/smartparking/view/HomeView.fxml"));
+        Parent homeRoot = loader.load();
+
+        // Optionnel : récupérer le contrôleur si tu veux appeler des méthodes dessus
+        HomeController homeController = loader.getController();
+
+        Scene homeScene = new Scene(homeRoot, 1200, 700); // Taille homogène
+        Stage stage = (Stage) usernameField.getScene().getWindow();
+        stage.setScene(homeScene);
+        stage.setTitle("Smart Parking Application");
+        stage.show();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+        showMessage("Cannot return to Home page.", Color.RED);
+    }
+}
+
+
+
 
 
     private void showMessage(String message, Color color) {

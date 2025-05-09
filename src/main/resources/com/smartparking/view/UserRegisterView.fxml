@@ -33,6 +33,8 @@
                  <Label text="Already have an account?" />
                  <Hyperlink onAction="#handleGoToLogin" text="Login here" />
             </HBox>
+                <Button fx:id="backHomeButton" onAction="#handleBackHome" text="Back to Home" styleClass="back-home-button" maxWidth="Infinity" />
+
         </VBox>
     </VBox>
 </VBox>
