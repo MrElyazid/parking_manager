@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <javafx.version>17.0.10</javafx.version> <!-- Use a recent stable version -->
+        <javafx.version>17.0.2</javafx.version> <!-- Changed to LTS version 17.0.2 -->
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
     </properties>
 
@@ -32,13 +32,13 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
-            <classifier>linux</classifier> <!-- Add classifier for your OS if needed -->
+            <!-- Classifier removed to let plugin handle it -->
         </dependency>
          <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
             <version>${javafx.version}</version>
-             <classifier>linux</classifier> <!-- Add classifier for your OS if needed -->
+            <!-- Classifier removed to let plugin handle it -->
         </dependency>
 
         <!-- SQLite JDBC Driver -->
@@ -46,6 +46,12 @@
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.45.3.0</version> <!-- Use a recent stable version -->
+        </dependency>
+        <!-- FontAwesomeFX for icons -->
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-fontawesome</artifactId>
+            <version>4.7.0-9.1.2</version> <!-- FontAwesome 4.7.0 icons, library version 9.1.2 -->
         </dependency>
     </dependencies>
 

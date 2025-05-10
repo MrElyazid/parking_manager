@@ -1,138 +1,235 @@
-/* General Styles */
+/* ==== General Styles ==== */
 .root {
-    -fx-font-family: "Segoe UI", Arial, sans-serif; /* A common modern font */
-    -fx-background-color: #f4f4f9; /* Light grey background */
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-background-color: #F5F5F5; /* Light gray background */
 }
 
-/* Navigation Bar Styles */
+/* ==== Navigation Bar Styles ==== */
 .nav-bar {
-    -fx-background-color: #4a4a8a; /* A deep blue/purple */
-    -fx-padding: 10px 20px;
-    -fx-alignment: center-left; /* Align items to the left */
+    -fx-background-color: white;
+    -fx-padding: 10 20;
 }
 
 .title-label {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #008080; /* Teal (primary) */
 }
 
+/* ==== Admin Button ==== */
 .admin-button {
-    -fx-background-color: #e84545; /* A contrasting red */
+    -fx-background-color: #FFA726; /* Accent orange */
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
     -fx-padding: 5px 15px;
-    -fx-cursor: hand; /* Indicate it's clickable */
-    /* Position it to the right - FXML structure might need adjustment for better layout */
-    /* For now, it's just styled */
+    -fx-cursor: hand;
 }
+
+.bg-image {
+    -fx-background-image: url('../images/Business.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+}
+
 
 .admin-button:hover {
-    -fx-background-color: #c43030; /* Darker red on hover */
+    -fx-background-color: #fb8c00; /* Slightly darker orange */
 }
 
+/* ==== Input Fields ==== */
+.input-login,
+.text-field {
+    -fx-border-radius: 5px;
+    -fx-pref-width: 250px;
+    -fx-prompt-text-fill: #9E9E9E;
+}
 
-/* Center Content Styles */
+/* ==== Welcome Label ==== */
 .welcome-label {
-    -fx-font-size: 28px; /* Made slightly larger in FXML */
-    -fx-text-fill: #4a4a8a; /* Match nav bar color */
-    -fx-padding-bottom: 10px; /* Add some space below */
+    -fx-font-size: 28px;
+    -fx-text-fill: #008080; /* Match primary */
+    -fx-padding-bottom: 10px;
 }
 
-/* Reservation Form Specific Styles */
-.grid-pane { /* Style the GridPane directly if needed, or use ID */
+/* ==== Reservation Form ==== */
+.grid-pane {
     -fx-padding: 20px;
     -fx-background-color: white;
     -fx-background-radius: 8px;
     -fx-border-radius: 8px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); /* Subtle shadow */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
 }
 
-.grid-pane .label { /* Style labels within the grid */
+.grid-pane .label {
     -fx-font-size: 14px;
     -fx-text-fill: #555;
-    -fx-font-weight: bold; /* Already set inline, but good practice */
-}
-
-.date-picker {
-    -fx-pref-width: 250px; /* Ensure consistent width */
-}
-
-.text-field {
-     -fx-pref-width: 250px;
-     -fx-prompt-text-fill: #aaa; /* Lighter prompt text */
-}
-
-.reserve-button { /* Specific style for the reserve button if needed */
     -fx-font-weight: bold;
-    -fx-background-color: #5cb85c; /* Green */
-    /* Inherits general .button styles, can override here */
+}
+
+/* ==== Date Picker ==== */
+.date-picker {
+    -fx-pref-width: 250px;
+}
+
+/* ==== Reserve Button ==== */
+.reserve-button {
+    -fx-font-weight: bold;
+    -fx-background-color: #66BB6A; /* Green */
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
 }
 
 .reserve-button:hover {
-     -fx-background-color: #4cae4c; /* Darker green */
+    -fx-background-color: #4CAF50;
 }
 
-/* Parking Lot View Styles */
+/* ==== Parking Spot Styles ==== */
 .spot-button {
     -fx-font-weight: bold;
     -fx-background-radius: 3px;
     -fx-border-radius: 3px;
     -fx-border-width: 1px;
     -fx-border-color: #aaa;
-    -fx-padding: 5px; /* Adjust padding as needed */
+    -fx-padding: 5px;
     -fx-alignment: center;
 }
 
 .spot-button-available {
-    -fx-background-color: #90ee90; /* Light green */
-    -fx-text-fill: #333;
+    -fx-background-color: #90EE90;
+    -fx-text-fill: #212121;
     -fx-cursor: hand;
 }
 .spot-button-available:hover {
-    -fx-background-color: #7ccd7c; /* Slightly darker green */
+    -fx-background-color: #7CCD7C;
 }
 
 .spot-button-reserved {
-    -fx-background-color: #ff7f7f; /* Light red */
+    -fx-background-color: #FF7F7F;
     -fx-text-fill: #555;
-    -fx-opacity: 0.7; /* Make reserved spots slightly faded */
+    -fx-opacity: 0.7;
 }
 
 .spot-button-selected {
-    -fx-background-color: #4682b4; /* Steel blue */
+    -fx-background-color: #4682B4;
     -fx-text-fill: white;
-    -fx-border-color: #2a4b6a;
+    -fx-border-color: #2A4B6A;
     -fx-border-width: 2px;
 }
 
-/* Type-specific spot styles (add icons later if desired) */
+/* Spot Types */
 .spot-button-standard {
-    /* Default look, maybe slightly different border? */
-    -fx-border-color: #bbb;
+    -fx-border-color: #BBB;
 }
 .spot-button-ev {
-    -fx-border-color: #007bff; /* Blue border for EV */
-    /* Add EV icon or different background? */
+    -fx-border-color: #0080FF;
 }
 .spot-button-disabled {
-     -fx-border-color: #ffc107; /* Yellow border for Disabled */
-     /* Add Disabled icon? */
+    -fx-border-color: #FFC107;
+}
+
+/* ==== New Spot Card Styles ==== */
+.spot-card {
+    -fx-padding: 8px; /* Adjusted padding */
+    -fx-background-color: #f9f9f9; /* Lighter default background */
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px; /* Slightly more rounded */
+    -fx-background-radius: 6px;
+    -fx-min-width: 130px;  /* Adjusted min-width */
+    -fx-pref-width: 130px; /* Added pref-width */
+    -fx-min-height: 90px; /* Adjusted min-height */
+    -fx-pref-height: 90px;/* Added pref-height */
+    /* -fx-alignment: center-left; /* VBox in FXML handles internal alignment */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 1, 2); /* Softer shadow */
+    -fx-cursor: hand; /* Indicate clickable */
+}
+
+.spot-card:hover {
+    -fx-border-color: #aaaaaa;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 2, 3);
+}
+
+.spot-card-id {
+    -fx-font-size: 15px; /* Slightly adjusted */
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.spot-card-type {
+    -fx-font-size: 11px; /* Slightly smaller */
+    -fx-text-fill: #555555;
+}
+
+.spot-card-type-icon {
+    -fx-fill: #555555; /* Match type label color */
+    /* Size is set in FXML (1.1em) */
+}
+
+.spot-card-rate {
+    -fx-font-size: 11px; /* Slightly smaller */
+    -fx-text-fill: #006400; /* Dark green for rate */
+    -fx-font-weight: bold;
+}
+
+/* Status-specific styles */
+.spot-card-available {
+    -fx-background-color: #e8f5e9; /* Light green background */
+    -fx-border-color: #a5d6a7; /* Greenish border */
+}
+.spot-card-available:hover {
+    -fx-background-color: #dcedc8;
+    -fx-border-color: #81c784;
+}
+
+.spot-card-reserved {
+    -fx-background-color: #ffebee; /* Light red background */
+    -fx-border-color: #ef9a9a; /* Reddish border */
+    -fx-opacity: 0.7; /* Make it look less prominent */
+    -fx-cursor: default;
+}
+.spot-card-reserved .spot-card-id,
+.spot-card-reserved .spot-card-type,
+.spot-card-reserved .spot-card-type-icon,
+.spot-card-reserved .spot-card-rate {
+    -fx-opacity: 0.8; /* Dim the text/icon as well */
 }
 
 
-/* Status Bar Styles */
+.spot-card-selected {
+    -fx-background-color: #bbdefb; /* Light blue background for selected */
+    -fx-border-color: #64b5f6; /* Stronger blue border */
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(30,144,255,0.3), 10, 0, 0, 3);
+}
+
+/* Type-specific base styles (mostly for icon color if not overridden by status) */
+/* These are added by SpotCardController to the spotCardRoot */
+.spot-card-type-ev .spot-card-type-icon {
+    -fx-fill: #0277bd; /* EV Blue */
+}
+.spot-card-type-disabled .spot-card-type-icon {
+    -fx-fill: #f57c00; /* Disabled Orange/Yellow */
+}
+.spot-card-type-standard .spot-card-type-icon {
+    -fx-fill: #555555; /* Default icon color */
+}
+/* ==== End New Spot Card Styles ==== */
+
+/* ==== Status Bar ==== */
 .status-label {
-     -fx-padding: 5px 20px;
-     -fx-background-color: #e0e0e0; /* Light grey for status bar */
-     -fx-text-fill: #555;
-     -fx-font-size: 12px;
+    -fx-padding: 5px 20px;
+    -fx-background-color: #E0E0E0;
+    -fx-text-fill: #555;
+    -fx-font-size: 12px;
 }
 
-/* Basic Button Style (can be refined) */
+/* ==== General Button Style ==== */
 .button {
-    -fx-background-color: #5cb85c; /* Green for general actions */
+    -fx-background-color: #086DFF;
     -fx-text-fill: white;
     -fx-padding: 8px 20px;
     -fx-background-radius: 5px;
@@ -141,5 +238,392 @@
 }
 
 .button:hover {
-    -fx-background-color: #4cae4c; /* Darker green on hover */
+    -fx-background-color: #0051cc; /* Darker blue */
+}
+
+/* For FontAwesomeIconView elements that should be white */
+.icon-white {
+    -fx-fill: white;
+}
+
+/* For FontAwesomeIconView elements that should match primary text/link color */
+.icon-primary {
+    -fx-fill: #1976D2; /* Matches .login-register-view .hyperlink text fill */
+}
+
+/* For FontAwesomeIconView elements that should match side menu button text color */
+.icon-sidemenu {
+    -fx-fill: #4a4a8a; /* Matches .side-menu-button text fill */
+}
+
+/* For FontAwesomeIconView elements that should be black */
+.icon-black {
+    -fx-fill: black;
+}
+ 
+/* fo login form
+
+ */
+/* style.css */
+
+/* Apply to the main VBox for Login/Register views */
+.login-register-view {
+    -fx-background-color: linear-gradient(to bottom right, #64B5F6, #1976D2); /* Blue gradient background */
+    -fx-padding: 50; /* Increased padding */
+    -fx-alignment: center;
+}
+
+.login-register-view .label { /* General labels within these views */
+    -fx-text-fill: white; /* White text for better contrast on gradient */
+}
+
+.login-register-view .title-label { /* Specific for the main title "User Login" / "User Registration" */
+    -fx-font-size: 32px; /* Larger font size */
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding-bottom: 20px; /* More space below title */
+}
+
+/* Styling for the content box (GridPane and buttons VBox) */
+.login-register-content-box {
+    -fx-background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    -fx-padding: 30;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 5); /* Softer shadow */
+    -fx-max-width: 400px;
+}
+
+
+.login-register-content-box .label { /* Labels inside the content box */
+     -fx-text-fill: #333; /* Dark text for readability on white background */
+     -fx-font-weight: normal;
+}
+
+
+/* TextField and PasswordField within login/register views */
+.login-register-view .text-field,
+.login-register-view .password-field {
+    -fx-pref-height: 45px; /* Slightly taller */
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #B0BEC5; /* Light blue-gray border */
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+}
+
+/* Focus effect on TextField and PasswordField */
+.login-register-view .text-field:focused,
+.login-register-view .password-field:focused {
+    -fx-border-color: #1976D2; /* Primary blue border on focus */
+    -fx-background-color: #E3F2FD; /* Light blue background on focus */
+    -fx-effect: dropshadow(three-pass-box, rgba(25, 118, 210, 0.3), 5, 0, 0, 2);
+}
+
+/* Login/Register Button Style */
+.login-register-button {
+    -fx-background-color: #1E88E5; /* Vibrant blue */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 20px;
+    -fx-background-radius: 8px;
+    -fx-pref-height: 45px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 2, 2);
+}
+
+.login-register-button:hover {
+    -fx-background-color: #1565C0; /* Darker blue on hover */
+}
+
+/* Hyperlink in login/register views */
+.login-register-view .hyperlink {
+    -fx-text-fill: #1976D2; /* Primary blue */
+    -fx-font-size: 13px;
+}
+
+.login-register-view .hyperlink:hover {
+    -fx-text-fill: #0D47A1; /* Darker blue on hover */
+    -fx-underline: true;
+}
+
+/* Error message label */
+#messageLabel {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+
+/* ParkingLot
+ */
+
+.combo-box, .date-picker {
+    -fx-pref-height: 30px;
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 4;
+    -fx-padding: 0 5 0 5;
+}
+
+.combo-box:hover, .date-picker:hover {
+    -fx-border-color: #4a4a8a;
+}
+
+/* Availability message */
+#availabilityMessageLabel {
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: lightgrey;
+    -fx-border-width: 1;
+}
+
+.spot-button-available {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-pref-width: 60;
+    -fx-pref-height: 40;
+}
+
+.spot-button-available:hover {
+    -fx-background-color: #3ecf5a;
+}
+
+.spot-button-reserved {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+}
+
+.spot-button-selected {
+    -fx-background-color: #ffc107;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+}
+
+
+.side-menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4a4a8a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+}
+
+.side-menu-button:hover {
+    -fx-background-color: #e8e8e8;
+}
+
+.side-menu-button:focused {
+    -fx-background-color: #d0d0ff;
+}
+
+
+
+/* VBox (inside ScrollPane) holding the cards */
+#cardContainer {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+}
+
+/* Individual reservation card */
+.reservation-card {
+    -fx-padding: 15;
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #4a4a8a;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);
+}
+
+/* Labels inside the card */
+.reservation-card .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Button inside the card */
+.reservation-card .button {
+    -fx-background-color: #4a4a8a;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-padding: 5 12;
+}
+
+/* Button hover effect */
+.reservation-card .button:hover {
+    -fx-background-color: #38386b;
+}
+
+/* ==== Admin Panel Styles (Refined) ==== */
+.admin-panel {
+    -fx-background-color: #f4f6f8; /* Lighter, cleaner background */
+    -fx-font-family: "System", Arial, sans-serif; /* More neutral font */
+}
+
+.admin-panel .tab-pane {
+    -fx-tab-min-height: 35px; /* Adjust tab height */
+    -fx-tab-max-height: 35px;
+}
+
+.admin-panel .tab-pane > .tab-header-area {
+    -fx-background-color: #e0e0e0; /* Light gray for tab header background */
+    -fx-padding: 0;
+}
+
+.admin-panel .tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: #e0e0e0; /* Light gray for unselected tabs */
+    -fx-background-insets: 0;
+    -fx-padding: 10px 20px; /* More padding for tabs */
+    -fx-font-size: 14px; /* Slightly larger font for tabs */
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+    -fx-border-color: transparent; /* No borders for cleaner look */
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
+}
+
+.admin-panel .tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: #ffffff; /* White for selected tab */
+    -fx-text-fill: #007AFF; /* Primary blue for selected tab text */
+    -fx-border-color: #d0d0d0 #d0d0d0 transparent #d0d0d0; /* Subtle border */
+    -fx-border-width: 1px;
+}
+
+.admin-panel .tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-background-color: #d8d8d8; /* Slightly darker on hover */
+}
+
+.admin-panel .tab-pane .tab-content-area {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px; /* More padding in content area */
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 1px 1px 1px; /* Border on sides and bottom */
+}
+
+.admin-panel .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Standard dark gray text */
+}
+
+.admin-panel .table-view {
+    -fx-border-color: #cccccc; /* Lighter border for table */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-selection-bar: #007AFF; /* Blue selection bar */
+    -fx-selection-bar-text: white;
+}
+
+.admin-panel .table-view .column-header-background {
+    -fx-background-color: #f0f0f0; /* Light gray for header */
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0 0 1px 0; /* Bottom border for header */
+}
+
+.admin-panel .table-view .column-header {
+    -fx-background-color: transparent; /* Ensure no double background */
+}
+
+.admin-panel .table-view .column-header .label {
+    -fx-text-fill: #333333; /* Dark text for header */
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 10px 8px; /* More padding in header cells */
+}
+
+.admin-panel .table-view .table-row-cell {
+    -fx-padding: 4px 8px; /* Slightly reduced vertical padding */
+    -fx-font-size: 13px;
+    -fx-cell-size: 45px; /* Increased cell height */
+    -fx-border-color: transparent #e0e0e0 transparent transparent; 
+    -fx-border-width: 0 1px 0 0; 
+    -fx-alignment: CENTER_LEFT; /* Align text to the left of the cell */
+}
+
+.admin-panel .table-view .table-row-cell:odd {
+    -fx-background-color: #f9f9f9; /* Very light gray for odd rows */
+}
+
+.admin-panel .table-view .table-row-cell:even {
+    -fx-background-color: #ffffff; /* White for even rows */
+}
+
+.admin-panel .table-view .table-row-cell:selected {
+    -fx-background-color: #007AFF; /* Primary blue for selected row */
+}
+.admin-panel .table-view .table-row-cell:selected .text {
+    -fx-fill: white;
+}
+
+
+.admin-panel-section-title {
+    -fx-font-size: 20px; /* Larger section titles */
+    -fx-font-weight: bold;
+    -fx-text-fill: #007AFF; /* Primary blue for titles */
+    -fx-padding-bottom: 15px; /* More space below title */
+    -fx-border-color: transparent transparent #e0e0e0 transparent; /* Bottom border */
+    -fx-border-width: 1px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.admin-panel .button { /* General button style within admin panel */
+    -fx-background-color: #007AFF; /* Primary blue */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px; /* Larger padding for buttons */
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 1, 2); /* Subtle shadow */
+}
+
+.admin-panel .button:hover {
+    -fx-background-color: #005ecb; /* Darker blue on hover */
+}
+
+.admin-panel .delete-button {
+    -fx-background-color: #FF3B30; /* iOS-like red for delete */
+}
+.admin-panel .delete-button:hover {
+    -fx-background-color: #D92C20; /* Darker red */
+}
+
+.admin-panel .grid-pane { /* For statistics tab and dialogs */
+    -fx-padding: 15px;
+}
+
+.admin-panel .grid-pane .label {
+    -fx-font-size: 14px;
+    -fx-padding: 8px 0; /* More padding for grid labels */
+}
+
+.admin-panel .grid-pane .label-bold { /* For statistic titles */
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* Logout Button Style */
+.logout-button {
+    -fx-background-color: #FF9500; /* Orange for logout, distinct color */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 15px;
+    -fx-font-size: 13px;
+}
+.logout-button:hover {
+    -fx-background-color: #E68600; /* Darker orange */
 }

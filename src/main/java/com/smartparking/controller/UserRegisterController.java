@@ -2,10 +2,16 @@ package com.smartparking.controller;
 
 import com.smartparking.service.UserService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class UserRegisterController {
 
@@ -73,15 +79,43 @@ public class UserRegisterController {
     }
 
     @FXML
-    private void handleGoToLogin() {
-        System.out.println("Navigating to login screen...");
-         if (mainController != null) {
-            mainController.loadUserLoginView(); // Ask MainController to load the login view
-        } else {
-             System.err.println("MainController reference not set in UserRegisterController.");
-             showMessage("Cannot navigate to login.", Color.RED);
+    private void handleGoToLogin() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/smartparking/view/MainView.fxml"));
+            Parent loginRoot = loader.load();
+            // Get the current stage from any control inside the window (like usernameField)
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+
+            stage.getScene().setRoot(loginRoot);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showMessage("Cannot navigate to registration.", Color.RED);
         }
     }
+
+    @FXML
+private void handleBackHome() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/smartparking/view/HomeView.fxml"));
+        Parent homeRoot = loader.load();
+
+        // Optionnel : récupérer le contrôleur si tu veux appeler des méthodes dessus
+        HomeController homeController = loader.getController();
+
+        Scene homeScene = new Scene(homeRoot, 1200, 700); 
+        Stage stage = (Stage) usernameField.getScene().getWindow();
+        stage.setScene(homeScene);
+        stage.setTitle("Smart Parking Application");
+        stage.show();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+        showMessage("Cannot return to Home page.", Color.RED);
+    }
+}
+
 
      private void showMessage(String message, Color color) {
         messageLabel.setText(message);

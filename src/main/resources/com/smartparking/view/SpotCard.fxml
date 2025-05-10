@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<VBox fx:id="spotCardRoot" spacing="5.0" styleClass="spot-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartparking.controller.SpotCardController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <children>
+        <Label fx:id="spotIdLabel" styleClass="spot-card-id" text="Spot ID" />
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <FontAwesomeIconView fx:id="spotTypeIcon" styleClass="spot-card-type-icon" glyphName="CAR" size="1.1em"/>
+                <Label fx:id="spotTypeLabel" styleClass="spot-card-type" text="Type" />
+            </children>
+        </HBox>
+        <Label fx:id="spotRateLabel" styleClass="spot-card-rate" text="\$0.00/hr" />
+    </children>
+</VBox>

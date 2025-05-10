@@ -87,5 +87,25 @@ public class SpotService {
          }
     }
 
-    // Add methods for updating spots if needed
+    /**
+     * Updates an existing parking spot.
+     *
+     * @param spot The ParkingSpot object with updated information.
+     * @return true if successful, false otherwise.
+     */
+    public boolean updateParkingSpot(ParkingSpot spot) {
+        String sql = "UPDATE ParkingSpots SET location_info = ?, type = ?, hourly_rate = ? WHERE spot_id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, spot.getLocationInfo());
+            pstmt.setString(2, spot.getType());
+            pstmt.setDouble(3, spot.getHourlyRate());
+            pstmt.setString(4, spot.getSpotId());
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.err.println("Error updating parking spot '" + spot.getSpotId() + "': " + e.getMessage());
+            return false;
+        }
+    }
 }

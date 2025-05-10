@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="406.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartparking.controller.HomeController" stylesheets="@../css/styles.css">
+   <content>
+      <VBox alignment="TOP_CENTER" fillWidth="true" prefWidth="800" spacing="20">
+
+         <!-- Navigation Bar -->
+         <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="nav-bar" VBox.vgrow="NEVER">
+            <children>
+               <ImageView fitHeight="66.0" fitWidth="128.0" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/image.png" />
+                  </image>
+               </ImageView>
+               <Region HBox.hgrow="ALWAYS" />
+               <Button onAction="#handleSignUpButtonClick" styleClass="admin-button" text="Sign Up" /> <!-- Added onAction -->
+               <Button onAction="#handleSignInButtonClick"  styleClass="admin-button" text="Sign In" />
+            </children>
+         </HBox>
+
+         <!-- Image Section -->
+         <VBox fx:id="aboutBox" alignment="CENTER" spacing="20" styleClass="bg-image" VBox.vgrow="ALWAYS" />
+
+         <!-- Info Section -->
+         <VBox alignment="CENTER" maxWidth="804.0" prefHeight="60.0" prefWidth="804.0" spacing="10">
+            <children>
+               <VBox alignment="CENTER" maxWidth="700.0" prefHeight="314.0" prefWidth="700.0" spacing="20">
+                  <children>
+                     <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Park with Comfort" />
+                     <Label text="Easily reserve parking like booking a room. View occupied spots. EV charging spots available." wrapText="true" />
+
+                     <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Get to Work on Time" />
+                     <Label text="Book parking in advance, anywhere. Save time and avoid stress. No more early commutes to find a spot." wrapText="true" />
+
+                     <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="No Mess in the Parking Lot" />
+                     <Label text="Optimize parking space use. Book only when needed. Multi-building support. Reserve for visitors." wrapText="true" />
+                  </children>
+               </VBox>
+            </children>
+         </VBox>
+
+         <!-- Footer (inside VBox) -->
+         <HBox alignment="CENTER" prefHeight="40.0" style="-fx-background-color: #f0f0f0; -fx-padding: 15;">
+            <children>
+               <Label style="-fx-text-fill: #555; -fx-font-size: 12px;" text="© 2025 ParkNet. No rights reserved." />
+            </children>
+         </HBox>
+
+      </VBox>
+   </content>
+</ScrollPane>

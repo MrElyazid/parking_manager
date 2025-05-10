@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Optional;
+import java.util.List; // Import List
 
 public class UserService {
 
@@ -135,6 +136,61 @@ public class UserService {
             e.printStackTrace();
             return Optional.empty();
         }
+    }
+
+    /**
+     * Finds a user by their user ID.
+     *
+     * @param userId The ID of the user to find.
+     * @return The User object if found, otherwise null.
+     */
+    public User getUserById(int userId) {
+        String sql = "SELECT username FROM Users WHERE user_id = ?";
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String username = rs.getString("username");
+                return new User(userId, username); // Return user without hash
+            } else {
+                return null; // User not found
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error finding user by ID: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves all users from the database.
+     *
+     * @return A list of all User objects.
+     */
+    public List<User> getAllUsers() {
+        List<User> users = new java.util.ArrayList<>();
+        String sql = "SELECT user_id, username FROM Users";
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String username = rs.getString("username");
+                users.add(new User(userId, username));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving all users: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return users;
     }
 
 
