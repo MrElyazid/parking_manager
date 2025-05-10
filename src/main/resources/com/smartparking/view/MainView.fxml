@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
@@ -19,7 +20,11 @@
                     </image>
                 </ImageView>
                 <Region prefHeight="38.0" prefWidth="871.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="logoutButton" managed="false" onAction="#handleLogout" style="-fx-background-color: #ffc107; -fx-text-fill: black;" text="Logout" visible="false" />
+            <Button fx:id="logoutButton" managed="false" onAction="#handleLogout" style="-fx-background-color: #ffc107; -fx-text-fill: black;" text="Logout" visible="false">
+                <graphic>
+                    <FontAwesomeIconView glyphName="SIGN_OUT_ALT" styleClass="icon-black" size="1.2em" />
+                </graphic>
+            </Button>
 
             </children>
         </HBox>
@@ -44,9 +49,21 @@
         <VBox prefHeight="361.0" prefWidth="194.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
                 <Region prefHeight="76.0" prefWidth="130.0" />
-                <Button styleClass="side-menu-button" onAction="#handleGoToReservation" text="New Reservation" />
-                <Button onAction="#handleShowHistory" styleClass="side-menu-button" text="History" />
-                <Button styleClass="side-menu-button" text="Help" />
+                <Button styleClass="side-menu-button" onAction="#handleGoToReservation" text="New Reservation">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="CALENDAR_PLUS_ALT" styleClass="icon-sidemenu" size="1.2em" />
+                    </graphic>
+                </Button>
+                <Button onAction="#handleShowHistory" styleClass="side-menu-button" text="History">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="HISTORY" styleClass="icon-sidemenu" size="1.2em" />
+                    </graphic>
+                </Button>
+                <Button styleClass="side-menu-button" text="Help">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="QUESTION_CIRCLE" styleClass="icon-sidemenu" size="1.2em" />
+                    </graphic>
+                </Button>
                 <Region prefHeight="200.0" prefWidth="200.0" />
             </children>
             <BorderPane.margin>

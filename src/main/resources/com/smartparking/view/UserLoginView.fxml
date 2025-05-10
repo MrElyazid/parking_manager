@@ -2,9 +2,10 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="350.0" prefWidth="421.0" spacing="20" styleClass="login-register-view" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartparking.controller.UserLoginController" >
+<VBox alignment="CENTER" prefHeight="350.0" prefWidth="421.0" spacing="20" styleClass="login-register-view" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartparking.controller.UserLoginController">
     <!-- Padding is now handled by .login-register-view CSS -->
 
     <Label styleClass="title-label" text="User Login" /> <!-- Applied title-label styleClass -->
@@ -26,12 +27,24 @@
         <Label fx:id="messageLabel" managed="false" text="Error Message" visible="false" /> <!-- Removed inline style, will be handled by #messageLabel CSS -->
 
         <VBox alignment="CENTER" spacing="15"> <!-- Increased spacing -->
-            <Button fx:id="loginButton" defaultButton="true" maxWidth="Infinity" onAction="#handleLogin" styleClass="login-register-button" text="Login" /> <!-- Changed styleClass -->
+            <Button fx:id="loginButton" defaultButton="true" maxWidth="Infinity" onAction="#handleLogin" styleClass="login-register-button" text="Login"> <!-- Changed styleClass -->
+                <graphic>
+                    <FontAwesomeIconView glyphName="SIGN_IN_ALT" styleClass="icon-white" size="1.2em" />
+                </graphic>
+            </Button>
             <HBox alignment="CENTER" spacing="5">
                 <Label text="Don't have an account?" />
-                <Hyperlink onAction="#handleGoToRegister" text="Register here" />
+                <Hyperlink onAction="#handleGoToRegister" text="Register here">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="USER_PLUS" styleClass="icon-primary" size="1.1em" />
+                    </graphic>
+                </Hyperlink>
             </HBox>
-                <Button fx:id="backHomeButton" onAction="#handleBackHome" text="Back to Home" styleClass="back-home-button" maxWidth="Infinity" />
+                <Button fx:id="backHomeButton" onAction="#handleBackHome" text="Back to Home" styleClass="back-home-button" maxWidth="Infinity">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="HOME" styleClass="icon-white" size="1.2em"/>
+                    </graphic>
+                </Button>
 
         </VBox>
     </VBox>

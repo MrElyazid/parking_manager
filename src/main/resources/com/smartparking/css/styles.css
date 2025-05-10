@@ -153,6 +153,26 @@
     -fx-background-color: #0051cc; /* Darker blue */
 }
 
+/* For FontAwesomeIconView elements that should be white */
+.icon-white {
+    -fx-fill: white;
+}
+
+/* For FontAwesomeIconView elements that should match primary text/link color */
+.icon-primary {
+    -fx-fill: #1976D2; /* Matches .login-register-view .hyperlink text fill */
+}
+
+/* For FontAwesomeIconView elements that should match side menu button text color */
+.icon-sidemenu {
+    -fx-fill: #4a4a8a; /* Matches .side-menu-button text fill */
+}
+
+/* For FontAwesomeIconView elements that should be black */
+.icon-black {
+    -fx-fill: black;
+}
+ 
 /* fo login form
 
  */

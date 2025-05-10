@@ -47,6 +47,12 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.45.3.0</version> <!-- Use a recent stable version -->
         </dependency>
+        <!-- FontAwesomeFX for icons -->
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-fontawesome</artifactId>
+            <version>4.7.0-9.1.2</version> <!-- FontAwesome 4.7.0 icons, library version 9.1.2 -->
+        </dependency>
     </dependencies>
 
     <build>
