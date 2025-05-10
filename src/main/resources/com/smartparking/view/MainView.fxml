@@ -47,7 +47,6 @@
                 <Button styleClass="side-menu-button" onAction="#handleGoToReservation" text="New Reservation" />
                 <Button onAction="#handleShowHistory" styleClass="side-menu-button" text="History" />
                 <Button styleClass="side-menu-button" text="Help" />
-                <Button onAction="#handleLogout" styleClass="side-menu-button" text="LogOut" />
                 <Region prefHeight="200.0" prefWidth="200.0" />
             </children>
             <BorderPane.margin>

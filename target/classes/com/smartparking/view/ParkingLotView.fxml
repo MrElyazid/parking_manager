@@ -21,6 +21,9 @@
     </padding>
 
     <top>
+
+
+
         <VBox spacing="10" alignment="CENTER">
             <Label text="Select Parking Spot" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #4a4a8a;"/>
 
@@ -53,7 +56,9 @@
             </ScrollPane>
 
             <Label fx:id="availabilityMessageLabel" style="-fx-text-fill: blue;" managed="false" visible="false"/>
+            <HBox fx:id="floorSelectionBox" spacing="10" alignment="CENTER"/>
         </VBox>
+
     </top>
 
     <center>

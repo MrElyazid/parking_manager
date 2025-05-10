@@ -11,6 +11,7 @@ import javafx.collections.FXCollections; // For ComboBox items
 import javafx.collections.ObservableList; // For ComboBox items
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -21,11 +22,17 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Duration; // For price calculation
 import java.util.List;
 import java.util.Optional;
 import java.util.HashMap; // To map buttons to spots
 import java.util.Map;
+import com.smartparking.util.DatabaseManager;
 
 public class ParkingLotController {
 
@@ -37,6 +44,11 @@ public class ParkingLotController {
     @FXML private Label availabilityMessageLabel;
     @FXML private TilePane parkingGrid;
     @FXML private Label selectedSpotLabel;
+    @FXML private HBox floorSelectionBox;
+
+    private ToggleGroup floorToggleGroup = new ToggleGroup();
+    private String selectedFloor = null;
+
     @FXML private Button confirmReservationButton;
 
     private final SpotService spotService = new SpotService();
@@ -71,10 +83,51 @@ public class ParkingLotController {
         confirmReservationButton.setDisable(true);
         // Set default date to today
         datePicker.setValue(LocalDate.now());
-
+        
         // Populate time ComboBoxes
         populateTimeCombos();
+
+
+
+
     }
+
+    // this method loads the floors :
+    @FXML
+    private void loadFloorsFromDatabase() {
+        floorSelectionBox.getChildren().clear();
+        Label label = new Label("Select Floor:");
+        floorSelectionBox.getChildren().add(label);
+    
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT floor FROM floors ORDER BY floor");
+             ResultSet rs = stmt.executeQuery()) {
+    
+            while (rs.next()) {
+                String floor = rs.getString("floor");
+                RadioButton floorRadio = new RadioButton(floor);
+                floorRadio.setToggleGroup(floorToggleGroup);
+                floorRadio.setUserData(floor);
+                floorRadio.setOnAction(e -> {
+                    selectedFloor = (String) floorRadio.getUserData();
+                    clearParkingGridAndSelection();
+                    List<ParkingSpot> allSpots = spotService.getAllParkingSpots();
+                
+                    populateParkingGrid(selectedStartTime, selectedEndTime);
+                    
+                    });
+                floorSelectionBox.getChildren().add(floorRadio);
+            }
+            
+
+        System.out.println("floorRadioBox is: " + floorSelectionBox);
+        System.out.println("Children in floorRadioBox: " + floorSelectionBox.getChildren().size());
+    
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Unable to load floors: " + e.getMessage());
+        }
+    }
+    
 
     private void populateTimeCombos() {
         ObservableList<String> hours = FXCollections.observableArrayList();
@@ -109,6 +162,7 @@ public class ParkingLotController {
         String endHour = endHourCombo.getValue();
         String endMinute = endMinuteCombo.getValue();
 
+
         // --- Input Validation ---
         if (date == null || startHour == null || startMinute == null || endHour == null || endMinute == null) {
             showAlert(Alert.AlertType.WARNING, "Input Error", "Please select date, start time, and end time.");
@@ -138,11 +192,12 @@ public class ParkingLotController {
              return;
         }
 
+        // Show floors
+        loadFloorsFromDatabase();
+
         // --- Populate Grid ---
         populateParkingGrid(selectedStartTime, selectedEndTime);
-        availabilityMessageLabel.setText("Checking... Select an available spot (Green).");
-        availabilityMessageLabel.setVisible(true);
-        availabilityMessageLabel.setManaged(true);
+
     }
 
     private void populateParkingGrid(LocalDateTime start, LocalDateTime end) {
@@ -150,10 +205,23 @@ public class ParkingLotController {
         buttonSpotMap.clear(); // Clear the map
 
         List<ParkingSpot> allSpots = spotService.getAllParkingSpots();
+        availabilityMessageLabel.setText("Select an available spot (Green).");
+        availabilityMessageLabel.setVisible(true);
+        availabilityMessageLabel.setManaged(true);
         if (allSpots.isEmpty()) {
             availabilityMessageLabel.setText("No parking spots defined in the system.");
             return;
         }
+
+        if (selectedFloor != null) {
+            allSpots.removeIf(spot -> !selectedFloor.equals(spot.getLocationInfo()));
+            if (allSpots.isEmpty()) {
+                availabilityMessageLabel.setText("No parking spots available for this floor.");
+                return;
+            }
+    
+        }
+        
 
         // TODO: Optimization - Fetch only relevant reservations for the day instead of checking one by one?
         // For now, we check availability for each spot individually.
@@ -287,13 +355,12 @@ public class ParkingLotController {
 
         if (reservationIdOpt.isPresent()) {
             showAlert(Alert.AlertType.INFORMATION, "Reservation Confirmed",
-                    String.format("Reservation successful!\nUser: %s\nSpot: %s\nFrom: %s\nTo: %s\nPrice: $%.2f\nID: %d",
+                    String.format("Reservation successful!\nUser: %s\nSpot: %s\nFrom: %s\nTo: %s\nPrice: $%.2f\n",
                             currentUser.getUsername(),
                             selectedSpot.getSpotId(),
                             selectedStartTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                             selectedEndTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                            price,
-                            reservationIdOpt.get()));
+                            price));
             // Clear selection and refresh grid
             populateParkingGrid(selectedStartTime, selectedEndTime); // Refresh grid showing the new reservation
         } else {

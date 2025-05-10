@@ -26,6 +26,7 @@ public class UserHistoryController {
     private User currentUser;
     private final ReservationService reservationService = new ReservationService();
     private ObservableList<Reservation> userReservations = FXCollections.observableArrayList();
+    
 
     // Formatter for currency
     private static final NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance();

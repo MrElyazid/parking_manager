@@ -31,13 +31,13 @@
                <VBox alignment="CENTER" maxWidth="700.0" prefHeight="314.0" prefWidth="700.0" spacing="20">
                   <children>
                      <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Park with Comfort" />
-                     <Label prefHeight="52.0" prefWidth="700.0" text="If you or your employees commute to work by car, you will definitely find the opportunity to reserve a parking space. With Bookigy, it's as easy as booking a workplace or meeting room. You can choose a specific place in the building and see which ones are occupied. Electric car drivers can find a place next to the charging station." wrapText="true" />
+                     <Label prefHeight="52.0" prefWidth="700.0" text="If you or your employees commute to work by car, you will definitely find the opportunity to reserve a parking space. With ParkNet, it's as easy as booking a workplace or meeting room. You can choose a specific place in the building and see which ones are occupied. Electric car drivers can find a place next to the charging station." wrapText="true" />
 
                      <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Get to Work on Time" />
                      <Label text="Finding a parking space is poison. But not anymore! Book a parking space in advance and from anywhere, so you don't waste time on the road. Thanks to the online reservation system, you won't have to travel to work an hour early to find a place to park. This will save you not only time but also stress from finding vacancies in the city." wrapText="true" />
 
                      <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="No Mess in the Parking Lot" />
-                     <Label text="The online reservation system helps to make better use of the parking spaces in the building. Thanks to a simple overview, employees can book a place only on the days when they really need it. Bookigy supports bookings across multiple buildings, so you can secure a seat at any of your branches. And you can also reserve a parking space for visitors such as business partners." wrapText="true" />
+                     <Label text="The online reservation system helps to make better use of the parking spaces in the building. Thanks to a simple overview, employees can book a place only on the days when they really need it. ParkNet supports bookings across multiple buildings, so you can secure a seat at any of your branches. And you can also reserve a parking space for visitors such as business partners." wrapText="true" />
                   </children>
                </VBox>
             </children>
@@ -46,7 +46,7 @@
          <!-- Footer (inside VBox) -->
          <HBox alignment="CENTER" prefHeight="40.0" style="-fx-background-color: #f0f0f0; -fx-padding: 15;">
             <children>
-               <Label style="-fx-text-fill: #555; -fx-font-size: 12px;" text="© 2025 Bookigy. All rights reserved." />
+               <Label style="-fx-text-fill: #555; -fx-font-size: 12px;" text="© 2025 ParkNet. No rights reserved." />
             </children>
          </HBox>
 
