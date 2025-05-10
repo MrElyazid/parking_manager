@@ -10,13 +10,16 @@ import javafx.fxml.FXML;
 import javafx.collections.FXCollections; // For ComboBox items
 import javafx.collections.ObservableList; // For ComboBox items
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader; // Added for SpotCard.fxml
+import javafx.scene.Node; // Added for spot card node
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane; // Changed from TilePane
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.event.ActionEvent;
 
+import java.io.IOException; // Added for FXMLLoader
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -30,7 +33,7 @@ import java.sql.SQLException;
 import java.time.Duration; // For price calculation
 import java.util.List;
 import java.util.Optional;
-import java.util.HashMap; // To map buttons to spots
+import java.util.HashMap;
 import java.util.Map;
 import com.smartparking.util.DatabaseManager;
 
@@ -42,7 +45,7 @@ public class ParkingLotController {
     @FXML private ComboBox<String> endHourCombo;
     @FXML private ComboBox<String> endMinuteCombo;
     @FXML private Label availabilityMessageLabel;
-    @FXML private TilePane parkingGrid;
+    @FXML private GridPane parkingGrid; // Changed from TilePane
     @FXML private Label selectedSpotLabel;
     @FXML private HBox floorSelectionBox;
 
@@ -59,9 +62,9 @@ public class ParkingLotController {
     private ParkingSpot selectedSpot = null;
     private LocalDateTime selectedStartTime = null;
     private LocalDateTime selectedEndTime = null;
-    private Button selectedSpotButton = null; // Keep track of the selected button
+    private Node selectedSpotCardNode = null; // Changed from Button to Node (root of SpotCard)
 
-    private final Map<Button, ParkingSpot> buttonSpotMap = new HashMap<>();
+    private final Map<Node, SpotCardController> spotNodeMap = new HashMap<>(); // Maps SpotCard root node to its controller
 
     // Time formatter for display/parsing if needed elsewhere, but primarily using combo values now
     // private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
@@ -202,12 +205,13 @@ public class ParkingLotController {
 
     private void populateParkingGrid(LocalDateTime start, LocalDateTime end) {
         clearParkingGridAndSelection();
-        buttonSpotMap.clear(); // Clear the map
+        spotNodeMap.clear(); // Clear the map
 
         List<ParkingSpot> allSpots = spotService.getAllParkingSpots();
-        availabilityMessageLabel.setText("Select an available spot (Green).");
+        availabilityMessageLabel.setText("Select an available spot."); // Updated message
         availabilityMessageLabel.setVisible(true);
         availabilityMessageLabel.setManaged(true);
+
         if (allSpots.isEmpty()) {
             availabilityMessageLabel.setText("No parking spots defined in the system.");
             return;
@@ -216,103 +220,94 @@ public class ParkingLotController {
         if (selectedFloor != null) {
             allSpots.removeIf(spot -> !selectedFloor.equals(spot.getLocationInfo()));
             if (allSpots.isEmpty()) {
-                availabilityMessageLabel.setText("No parking spots available for this floor.");
+                availabilityMessageLabel.setText("No parking spots available for this floor: " + selectedFloor);
                 return;
             }
-    
         }
         
-
-        // TODO: Optimization - Fetch only relevant reservations for the day instead of checking one by one?
-        // For now, we check availability for each spot individually.
+        // Max 5 rows (A-E), 10 columns (01-10)
+        // The GridPane will create cells as needed. If a spot "B05" is added,
+        // it will create row 'B' (index 1) and column '05' (index 4).
 
         for (ParkingSpot spot : allSpots) {
-            String buttonLabel = String.format("%s\n$%.2f/hr", spot.getSpotId(), spot.getHourlyRate());
-            Button spotButton = new Button(buttonLabel);
-            spotButton.setPrefSize(80, 60);
-            spotButton.getStyleClass().add("spot-button");
+            try {
+                String spotId = spot.getSpotId();
+                if (spotId == null || spotId.length() < 2) {
+                    System.err.println("Invalid spot ID format: " + spotId + " for spot (location: " + spot.getLocationInfo() + ")");
+                    continue;
+                }
 
-            // Tooltip
-            String tooltipText = String.format(
-                    "Spot ID: %s\nType: %s\nLocation: %s\nRate: $%.2f/hr",
-                    spot.getSpotId(),
-                    spot.getType(),
-                    spot.getLocationInfo(),
-                    spot.getHourlyRate()
-            );
-            Tooltip tooltip = new Tooltip(tooltipText);
-            spotButton.setTooltip(tooltip);
+                char rowChar = Character.toUpperCase(spotId.charAt(0));
+                int rowIndex = rowChar - 'A'; // 'A' -> 0, 'B' -> 1, ..., 'E' -> 4
 
-            // Type-based style
-            switch (spot.getType().toLowerCase()) {
-                case "ev":
-                    spotButton.getStyleClass().add("spot-button-ev");
-                    break;
-                case "disabled":
-                    spotButton.getStyleClass().add("spot-button-disabled");
-                    break;
-                default:
-                    spotButton.getStyleClass().add("spot-button-standard");
-                    break;
+                if (rowIndex < 0 || rowIndex >= 5) { // Max 5 rows (A-E)
+                    System.err.println("Invalid row character '" + rowChar + "' (index " + rowIndex + ") in spot ID: " + spotId);
+                    continue;
+                }
+
+                int columnIndex;
+                try {
+                    columnIndex = Integer.parseInt(spotId.substring(1)) - 1; // "01" -> 0, "10" -> 9
+                } catch (NumberFormatException nfe) {
+                    System.err.println("Invalid column number in spot ID: " + spotId + " - " + nfe.getMessage());
+                    continue;
+                }
+
+                if (columnIndex < 0 || columnIndex >= 10) { // Max 10 columns (01-10 means indices 0-9)
+                    System.err.println("Column index " + columnIndex + " out of bounds (0-9) for spot ID: " + spotId);
+                    continue;
+                }
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/smartparking/view/SpotCard.fxml"));
+                VBox spotCardNode = loader.load();
+                SpotCardController spotCardController = loader.getController();
+                spotCardController.setData(spot);
+
+                boolean isAvailable = reservationService.isSpotAvailable(spot.getSpotId(), start, end);
+
+                if (isAvailable) {
+                    spotCardNode.getStyleClass().add("spot-card-available");
+                    spotCardNode.setOnMouseClicked(e -> {
+                        handleSpotSelection(spotCardNode, spotCardController);
+                    });
+                    spotNodeMap.put(spotCardNode, spotCardController);
+                } else {
+                    spotCardNode.getStyleClass().add("spot-card-reserved");
+                    spotCardNode.setDisable(true);
+                }
+                
+                parkingGrid.add(spotCardNode, columnIndex, rowIndex);
+
+            } catch (IOException e) {
+                System.err.println("Error loading SpotCard.fxml for spot " + spot.getSpotId() + ": " + e.getMessage());
+                e.printStackTrace();
             }
-
-            // Price-based style
-            if (spot.getHourlyRate() > 5) {
-                spotButton.getStyleClass().add("spot-button-premium");
-            } else if (spot.getHourlyRate() < 2) {
-                spotButton.getStyleClass().add("spot-button-budget");
-            }
-
-            boolean isAvailable = reservationService.isSpotAvailable(spot.getSpotId(), start, end);
-
-            if (isAvailable) {
-                spotButton.getStyleClass().add("spot-button-available");
-                spotButton.setOnAction(e -> {
-                    handleSpotSelection(spotButton, spot);
-                    showSpotDetailsDialog(spot);
-                });
-                buttonSpotMap.put(spotButton, spot);
-            } else {
-                spotButton.getStyleClass().add("spot-button-reserved");
-                spotButton.setDisable(true);
-            }
-
-            parkingGrid.getChildren().add(spotButton);
         }
-
-    }
-    private void showSpotDetailsDialog(ParkingSpot spot) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Parking Spot Details");
-        alert.setHeaderText("Details for Spot " + spot.getSpotId());
-        String content = String.format(
-                "Spot ID: %s\nType: %s\nLocation: %s\nRate: $%.2f/hr",
-                spot.getSpotId(),
-                spot.getType(),
-                spot.getLocationInfo(),
-                spot.getHourlyRate()
-        );
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
-    private void handleSpotSelection(Button button, ParkingSpot spot) {
-        // Deselect previous button if any
-        if (selectedSpotButton != null) {
-            selectedSpotButton.getStyleClass().remove("spot-button-selected");
-            // Re-apply available style if it wasn't the current button
-             if (selectedSpotButton != button) {
-                 selectedSpotButton.getStyleClass().add("spot-button-available");
-             }
+    // showSpotDetailsDialog method is removed as info is on the card.
+
+    private void handleSpotSelection(Node cardNode, SpotCardController cardController) {
+        // Deselect previous card node if any
+        if (selectedSpotCardNode != null) {
+            selectedSpotCardNode.getStyleClass().remove("spot-card-selected");
+            // Re-apply available style if it was available and not the current card
+            if (selectedSpotCardNode != cardNode && spotNodeMap.containsKey(selectedSpotCardNode)) {
+                 // Check if it's supposed to be available (not strictly necessary if styles are managed well)
+                 // For simplicity, we assume if it's not selected, and was selectable, it's available.
+                 // A more robust way would be to re-check its actual availability or store its original state.
+                 // For now, if it's in spotNodeMap, it was interactive.
+                selectedSpotCardNode.getStyleClass().add("spot-card-available");
+            }
         }
 
-        // Select new button
-        selectedSpot = spot;
-        selectedSpotButton = button;
-        selectedSpotButton.getStyleClass().remove("spot-button-available"); // Remove available class
-        selectedSpotButton.getStyleClass().add("spot-button-selected"); // Add selected class
+        // Select new card node
+        selectedSpot = cardController.getParkingSpot();
+        selectedSpotCardNode = cardNode;
+        selectedSpotCardNode.getStyleClass().remove("spot-card-available"); // Remove available class if present
+        selectedSpotCardNode.getStyleClass().add("spot-card-selected");   // Add selected class
 
-        selectedSpotLabel.setText("Selected Spot: " + spot.getSpotId());
+        selectedSpotLabel.setText("Selected Spot: " + selectedSpot.getSpotId());
         confirmReservationButton.setDisable(false); // Enable confirmation button
     }
 
@@ -372,7 +367,7 @@ public class ParkingLotController {
         parkingGrid.getChildren().clear(); // Remove all spot buttons
         // Clear only the spot selection, not the time range which is still valid for the current check
         selectedSpot = null;
-        selectedSpotButton = null;
+        selectedSpotCardNode = null; // Changed from selectedSpotButton
         // selectedStartTime = null; // DO NOT RESET TIME HERE
         // selectedEndTime = null;   // DO NOT RESET TIME HERE
         selectedSpotLabel.setText("Selected Spot: None");

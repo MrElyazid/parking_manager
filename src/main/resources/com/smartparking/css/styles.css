@@ -131,6 +131,94 @@
     -fx-border-color: #FFC107;
 }
 
+/* ==== New Spot Card Styles ==== */
+.spot-card {
+    -fx-padding: 8px; /* Adjusted padding */
+    -fx-background-color: #f9f9f9; /* Lighter default background */
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px; /* Slightly more rounded */
+    -fx-background-radius: 6px;
+    -fx-min-width: 130px;  /* Adjusted min-width */
+    -fx-pref-width: 130px; /* Added pref-width */
+    -fx-min-height: 90px; /* Adjusted min-height */
+    -fx-pref-height: 90px;/* Added pref-height */
+    /* -fx-alignment: center-left; /* VBox in FXML handles internal alignment */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 1, 2); /* Softer shadow */
+    -fx-cursor: hand; /* Indicate clickable */
+}
+
+.spot-card:hover {
+    -fx-border-color: #aaaaaa;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 2, 3);
+}
+
+.spot-card-id {
+    -fx-font-size: 15px; /* Slightly adjusted */
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.spot-card-type {
+    -fx-font-size: 11px; /* Slightly smaller */
+    -fx-text-fill: #555555;
+}
+
+.spot-card-type-icon {
+    -fx-fill: #555555; /* Match type label color */
+    /* Size is set in FXML (1.1em) */
+}
+
+.spot-card-rate {
+    -fx-font-size: 11px; /* Slightly smaller */
+    -fx-text-fill: #006400; /* Dark green for rate */
+    -fx-font-weight: bold;
+}
+
+/* Status-specific styles */
+.spot-card-available {
+    -fx-background-color: #e8f5e9; /* Light green background */
+    -fx-border-color: #a5d6a7; /* Greenish border */
+}
+.spot-card-available:hover {
+    -fx-background-color: #dcedc8;
+    -fx-border-color: #81c784;
+}
+
+.spot-card-reserved {
+    -fx-background-color: #ffebee; /* Light red background */
+    -fx-border-color: #ef9a9a; /* Reddish border */
+    -fx-opacity: 0.7; /* Make it look less prominent */
+    -fx-cursor: default;
+}
+.spot-card-reserved .spot-card-id,
+.spot-card-reserved .spot-card-type,
+.spot-card-reserved .spot-card-type-icon,
+.spot-card-reserved .spot-card-rate {
+    -fx-opacity: 0.8; /* Dim the text/icon as well */
+}
+
+
+.spot-card-selected {
+    -fx-background-color: #bbdefb; /* Light blue background for selected */
+    -fx-border-color: #64b5f6; /* Stronger blue border */
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(30,144,255,0.3), 10, 0, 0, 3);
+}
+
+/* Type-specific base styles (mostly for icon color if not overridden by status) */
+/* These are added by SpotCardController to the spotCardRoot */
+.spot-card-type-ev .spot-card-type-icon {
+    -fx-fill: #0277bd; /* EV Blue */
+}
+.spot-card-type-disabled .spot-card-type-icon {
+    -fx-fill: #f57c00; /* Disabled Orange/Yellow */
+}
+.spot-card-type-standard .spot-card-type-icon {
+    -fx-fill: #555555; /* Default icon color */
+}
+/* ==== End New Spot Card Styles ==== */
+
 /* ==== Status Bar ==== */
 .status-label {
     -fx-padding: 5px 20px;

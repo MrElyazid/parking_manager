@@ -27,6 +27,7 @@ public class MainController {
     // --- Injected FXML Elements ---
     @FXML private BorderPane mainBorderPane;
     @FXML private Button historyButton;
+    @FXML private Button helpButton; // Added
     @FXML private Button logoutButton;
     @FXML private Label statusLabel;
     @FXML private VBox centerContentVBox;
@@ -95,6 +96,7 @@ public class MainController {
                     uhc.setMainController(this);
                     uhc.setCurrentUser(this.currentLoggedInUser); // Pass the logged-in user
                 }
+                // No controller to set for HelpView.fxml for now
                 // Add other controller types here if needed
             }
 
@@ -280,6 +282,14 @@ public class MainController {
         alert.setHeaderText(null); // No header text
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleShowHelp() {
+        System.out.println("Help button clicked. Loading HelpView.fxml");
+        // For HelpView, we don't need to pass a controller reference for now
+        // as it's static content.
+        loadView("/com/smartparking/view/HelpView.fxml", false);
     }
 
     // Add other event handler methods here (e.g., for admin panel interactions)

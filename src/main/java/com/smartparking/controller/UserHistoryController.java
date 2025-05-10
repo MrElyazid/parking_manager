@@ -57,18 +57,20 @@ public class UserHistoryController {
         Label price = new Label("Price: " + CURRENCY_FORMAT.format(reservation.getCalculatedPrice()));
         Label bookedAt = new Label("Booked At: " + reservation.getFormattedCreationTimestamp());
 
-        Button modifyButton = new Button("Modify");
-        modifyButton.setOnAction(e -> handleModifyReservation(reservation));
+        // Modify button removed
+        // Button modifyButton = new Button("Modify");
+        // modifyButton.setOnAction(e -> handleModifyReservation(reservation));
 
-        card.getChildren().addAll(spotId ,Time, price, bookedAt, modifyButton);
+        card.getChildren().addAll(spotId ,Time, price, bookedAt); // modifyButton removed from here
         return card;
     }
 
-    private void handleModifyReservation(Reservation reservation) {
-        // TODO: implement the logic to modify the reservation
-        System.out.println("Modify clicked for reservation ID: " + reservation.getReservationId());
-        showAlert(Alert.AlertType.INFORMATION, "Modify", "Modify reservation feature is not yet implemented.");
-    }
+    // handleModifyReservation method removed as it's no longer used.
+    // private void handleModifyReservation(Reservation reservation) {
+    //     // TODO: implement the logic to modify the reservation
+    //     System.out.println("Modify clicked for reservation ID: " + reservation.getReservationId());
+    //     showAlert(Alert.AlertType.INFORMATION, "Modify", "Modify reservation feature is not yet implemented.");
+    // }
 
 
 

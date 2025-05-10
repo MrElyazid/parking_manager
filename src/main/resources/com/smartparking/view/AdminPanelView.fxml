@@ -17,8 +17,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import com.smartparking.model.ParkingSpot?> <!-- Import ParkingSpot model -->
 <?import javafx.scene.layout.GridPane?> <!-- Added GridPane import -->
-<!-- Chart imports definitively removed -->
-
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.smartparking.controller.AdminPanelController"
@@ -205,6 +209,21 @@
                             </VBox>
                         </HBox>
                     </VBox>
+                </content>
+            </Tab>
+            <Tab text="Charts">
+                <content>
+                    <ScrollPane fitToWidth="true" fitToHeight="true">
+                        <content>
+                            <VBox fx:id="chartsContainerVBox" spacing="20" alignment="TOP_CENTER">
+                                <padding>
+                                    <Insets top="15" right="15" bottom="15" left="15"/>
+                                </padding>
+                                <!-- Charts will be added here by the controller -->
+                                <Label text="Charts will be displayed here." styleClass="label-bold"/>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
                 </content>
             </Tab>
         </tabs>

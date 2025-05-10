@@ -59,7 +59,7 @@
                         <FontAwesomeIconView glyphName="HISTORY" styleClass="icon-sidemenu" size="1.2em" />
                     </graphic>
                 </Button>
-                <Button styleClass="side-menu-button" text="Help">
+                <Button fx:id="helpButton" onAction="#handleShowHelp" styleClass="side-menu-button" text="Help">
                     <graphic>
                         <FontAwesomeIconView glyphName="QUESTION_CIRCLE" styleClass="icon-sidemenu" size="1.2em" />
                     </graphic>

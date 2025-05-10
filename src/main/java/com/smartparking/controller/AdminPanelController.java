@@ -17,7 +17,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableCell; // For custom cell formatting
-// Chart imports definitively removed
+import javafx.scene.chart.BarChart; // Added
+import javafx.scene.chart.CategoryAxis; // Added
+import javafx.scene.chart.LineChart; // Added
+import javafx.scene.chart.NumberAxis; // Added
+import javafx.scene.chart.PieChart; // Added
+import javafx.scene.chart.XYChart; // Added
 import javafx.scene.control.TabPane; // Import TabPane
 import javafx.scene.control.Tab; // Import Tab
 import javafx.scene.control.Label; // Import Label
@@ -26,6 +31,7 @@ import javafx.scene.control.DialogPane; // Import DialogPane
 import javafx.scene.control.TextField; // Import TextField
 import javafx.fxml.FXMLLoader; // Import FXMLLoader
 import javafx.scene.layout.GridPane; // Import GridPane
+import javafx.scene.layout.VBox; // Added for chartsContainerVBox
 import javafx.stage.Stage; // Import Stage
 import javafx.scene.Parent; // Import Parent
 import javafx.scene.Scene; // Import Scene
@@ -86,6 +92,8 @@ public class AdminPanelController {
     @FXML private Label statsCurrentOccupancyLabel;
     @FXML private Label statsPopularSpotLabel;
     @FXML private Label statsPeakHourLabel;
+
+    @FXML private VBox chartsContainerVBox; // Added for the new Charts tab
 
 
     private final ReservationService reservationService = new ReservationService();
@@ -178,6 +186,9 @@ public class AdminPanelController {
                         break;
                     case "Statistics":
                         loadStatisticsData(); // Load statistics when Statistics tab is selected
+                        break;
+                    case "Charts":
+                        loadChartsData(); // Load charts when Charts tab is selected
                         break;
                 }
             }
@@ -586,5 +597,87 @@ public class AdminPanelController {
             e.printStackTrace();
             showAlert(AlertType.ERROR, "Logout Error", "Could not load the home page.");
         }
+    }
+
+    // --- Charting Methods ---
+
+    private void loadChartsData() {
+        System.out.println("Loading charts data...");
+        chartsContainerVBox.getChildren().clear(); // Clear previous charts
+
+        // TODO: Add error handling if services are null or data fetching fails
+
+        // 1. Occupancy Over Time (Line Chart)
+        chartsContainerVBox.getChildren().add(createOccupancyOverTimeChart());
+
+        // 2. Revenue Over Time (Bar Chart)
+        chartsContainerVBox.getChildren().add(createRevenueOverTimeChart());
+        
+        // 3. Spot Type Popularity (Pie Chart)
+        chartsContainerVBox.getChildren().add(createSpotTypePopularityChart());
+
+        System.out.println("Charts loaded into container.");
+    }
+
+    private LineChart<String, Number> createOccupancyOverTimeChart() {
+        // TODO: Fetch and process data for occupancy
+        // For now, returning a placeholder
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Date");
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Occupied Spots");
+
+        LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        lineChart.setTitle("Parking Occupancy Over Time (Last 7 Days)");
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Daily Occupancy");
+        // Dummy data
+        series.getData().add(new XYChart.Data<>("Day 1", 20));
+        series.getData().add(new XYChart.Data<>("Day 2", 25));
+        series.getData().add(new XYChart.Data<>("Day 3", 15));
+        lineChart.getData().add(series);
+        
+        lineChart.setPrefHeight(300); // Set a preferred height
+        return lineChart;
+    }
+
+    private BarChart<String, Number> createRevenueOverTimeChart() {
+        // TODO: Fetch and process data for revenue
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Date");
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Revenue ($)");
+
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Revenue Over Time (Last 7 Days)");
+        barChart.setLegendVisible(false);
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        // Dummy data
+        series.getData().add(new XYChart.Data<>("Day 1", 150.0));
+        series.getData().add(new XYChart.Data<>("Day 2", 200.0));
+        series.getData().add(new XYChart.Data<>("Day 3", 120.0));
+        barChart.getData().add(series);
+
+        barChart.setPrefHeight(300); // Set a preferred height
+        return barChart;
+    }
+
+    private PieChart createSpotTypePopularityChart() {
+        // TODO: Fetch and process data for spot type popularity
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("Standard", 60),
+                        new PieChart.Data("EV", 25),
+                        new PieChart.Data("Disabled", 15));
+        
+        PieChart pieChart = new PieChart(pieChartData);
+        pieChart.setTitle("Spot Type Popularity");
+        pieChart.setLegendVisible(true);
+        pieChart.setLabelsVisible(true); // Show labels on slices
+
+        pieChart.setPrefHeight(300); // Set a preferred height
+        return pieChart;
     }
 }
